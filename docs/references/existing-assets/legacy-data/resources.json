@@ -1,0 +1,40 @@
+{
+  "resources": [
+    {
+      "id": "newsletter-2025-01",
+      "category": "newsletter",
+      "title": "Newsletter January 2025: New Year, New Solutions",
+      "date": "2025-01-15",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+      "excerpt": "Kick off the new year with our latest newsletter featuring new product launches, industry insights, and exclusive offers for our valued partners.",
+      "content": "<p>Welcome to 2025! We're excited to share our first newsletter of the year, packed with updates on our latest product offerings and industry trends.</p><h3>What's New</h3><ul><li>DLAB Scientific product line now available</li><li>Special promotion on Lovibond water testing equipment</li><li>New webinar series on food safety testing</li></ul><h3>Industry Insights</h3><p>The laboratory equipment market in Indonesia continues to grow, driven by increasing quality standards in food, pharmaceutical, and environmental sectors. We're committed to providing cutting-edge solutions to meet these demands.</p><p>Stay tuned for more updates throughout the year!</p>"
+    },
+    {
+      "id": "product-dlab-launch",
+      "category": "product",
+      "title": "Introducing DLAB Scientific Laboratory Equipment",
+      "date": "2025-02-01",
+      "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80",
+      "excerpt": "We're proud to announce our partnership with DLAB Scientific, bringing you comprehensive laboratory equipment solutions from centrifuges to incubators.",
+      "content": "<p>PT Abhipraya Nawasena Sejahtera is thrilled to announce our new partnership with DLAB Scientific, a leading manufacturer of laboratory equipment.</p><h3>Product Highlights</h3><ul><li>High-Speed Refrigerated Centrifuges</li><li>Precision Analytical Balances</li><li>Digital Water Baths & Dry Bath Incubators</li><li>Orbital Shakers & Vortex Mixers</li><li>Rotary Evaporators</li></ul><h3>Why DLAB?</h3><p>DLAB Scientific is known for their reliability, precision, and excellent after-sales support. All products come with comprehensive warranties and technical documentation.</p><p>Contact us for product catalogs and quotations!</p>"
+    },
+    {
+      "id": "news-lab-seminar",
+      "category": "news",
+      "title": "ANS Hosts Successful Laboratory Equipment Seminar",
+      "date": "2025-01-20",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+      "excerpt": "Over 100 laboratory professionals attended our recent seminar on modern analytical techniques and equipment selection.",
+      "content": "<p>Last week, we successfully hosted a seminar on \"Modern Laboratory Equipment and Best Practices\" at our Bekasi office.</p><h3>Key Topics Covered</h3><ul><li>Water quality testing with Lovibond equipment</li><li>Rapid microbiology testing methods</li><li>Sterilization monitoring and validation</li><li>Laboratory automation trends</li></ul><h3>Participant Feedback</h3><p>\"The seminar was incredibly informative. The hands-on demonstrations really helped us understand the equipment capabilities.\" - Dr. Sarah, QC Manager</p><p>Thank you to all participants! We plan to hold more events throughout 2025.</p>"
+    },
+    {
+      "id": "product-neogen-promo",
+      "category": "product",
+      "title": "Special Promotion: Neogen Food Safety Testing Kits",
+      "date": "2025-02-05",
+      "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+      "excerpt": "Limited time offer on Neogen's complete food safety testing solutions including ATP monitoring, allergen detection, and pathogen screening.",
+      "content": "<p>For a limited time, enjoy special pricing on Neogen's comprehensive food safety testing portfolio!</p><h3>Promotion Details</h3><ul><li>15% off AccuPoint ATP monitoring systems</li><li>Buy 10 get 2 free on Reveal allergen test kits</li><li>Free training session with bulk orders</li><li>Valid until March 31, 2025</li></ul><h3>Featured Products</h3><p><strong>AccuPoint Advanced:</strong> Industry-leading ATP sanitation verification system</p><p><strong>Reveal 3-D:</strong> Rapid allergen detection for gluten, peanuts, milk, and more</p><p><strong>Acumedia Culture Media:</strong> Premium quality dehydrated media</p><p>Contact our sales team for detailed quotations!</p>"
+    }
+  ]
+}
