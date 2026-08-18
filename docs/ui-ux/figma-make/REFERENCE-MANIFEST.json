@@ -1,0 +1,29 @@
+{
+  "source": "High-Fidelity Website Prototype.zip",
+  "purpose": "Figma Make UI/UX reference only",
+  "production_code": false,
+  "selected_reference_files": [
+    "reference/src/App.tsx",
+    "reference/src/index.css",
+    "reference/src/main.tsx",
+    "reference/index.html",
+    "reference/package.json",
+    "assets/logo-ans.png",
+    "specifications/catalog-management.md",
+    "specifications/company-content-management.md",
+    "specifications/hero-banner-management.md",
+    "specifications/localization.md",
+    "specifications/public-catalog-experience.md",
+    "specifications/public-company-website.md",
+    "specifications/public-product-detail-experience.md",
+    "specifications/quotation-inquiry-management.md",
+    "specifications/ui-ux-specification.md"
+  ],
+  "excluded_categories": [
+    ".figma/make/",
+    "pnpm-lock.yaml",
+    "node_modules/",
+    "Figma Make-specific tooling",
+    "prototype-only build/runtime infrastructure"
+  ]
+}
