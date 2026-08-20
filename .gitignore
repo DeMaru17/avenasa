@@ -21,3 +21,13 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Local audit & exploration artifacts
+/scratch_images/
+/scratch_*.php
+/scratch_*.py
+/extracted_*.txt
+/extracted_*.md
+/extracted_*.json
+/extracted_*.csv
+/client_logos_*.html
