@@ -52,13 +52,15 @@ class CompanyProfileForm
                             ->rows(3)
                             ->required(),
                         Textarea::make('mission_id')
-                            ->label('Poin Misi Perusahaan (ID)')
-                            ->placeholder("1. Menyediakan produk diagnostik berkualitas tinggi.\n2. Memberikan layanan teknis profesional.")
+                            ->label('Misi (ID)')
+                            ->helperText('Masukkan satu poin misi pada setiap baris.')
+                            ->placeholder("Mewujudkan inovasi laboratorium terpadu untuk mendukung kemajuan sains, industri, dan lingkungan.\nMenyediakan solusi yang bertanggung jawab dan berkelanjutan bagi masyarakat.\nMembangun kerja sama strategis dengan pelanggan dan mitra bisnis.")
                             ->rows(5)
                             ->required(),
                         Textarea::make('mission_en')
-                            ->label('Poin Misi Perusahaan (EN)')
-                            ->placeholder("1. Providing high-quality diagnostic products.\n2. Delivering professional technical support.")
+                            ->label('Misi (EN)')
+                            ->helperText('Enter one mission statement per line.')
+                            ->placeholder("Realizing integrated laboratory innovation to support science, industry and environment progress.\nProviding responsible and continuous solutions for society and the earth.\nBuilding strategic cooperation with customers, business partners and principals.")
                             ->rows(5)
                             ->required(),
                     ])->columns(2),
