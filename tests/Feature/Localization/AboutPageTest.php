@@ -77,16 +77,16 @@ class AboutPageTest extends TestCase
         $this->createCompanyProfile();
 
         $idResponse = $this->get('/id/about');
-        $idResponse->assertSee('Visi & Misi');
-        $idResponse->assertSee('Arah & Tujuan ANS');
+        $idResponse->assertSee('Visi &amp; Misi', false);
+        $idResponse->assertSee('Menjadi Bagian dari Masa Depan yang Lebih Baik');
         $idResponse->assertSee('Menjadi motor penggerak kemajuan ilmu hayati di Indonesia.');
         $idResponse->assertSee('Mewujudkan inovasi laboratorium terpadu.');
         $idResponse->assertSee('Menyediakan solusi bertanggung jawab.');
         $idResponse->assertSee('Membangun kerja sama strategis.');
 
         $enResponse = $this->get('/en/about');
-        $enResponse->assertSee('Vision & Mission');
-        $enResponse->assertSee('ANS Direction & Purpose');
+        $enResponse->assertSee('Vision &amp; Mission', false);
+        $enResponse->assertSee('Being Part of a Better Future');
         $enResponse->assertSee('To be a driving force of life science advancement in Indonesia.');
         $enResponse->assertSee('Realizing integrated laboratory innovation.');
         $enResponse->assertSee('Providing responsible solutions.');
@@ -128,7 +128,7 @@ class AboutPageTest extends TestCase
         ]);
 
         $idResponse = $this->get('/id/about');
-        $idResponse->assertSee('6 Nilai Inti ANS');
+        $idResponse->assertSee('Nilai yang Menjadi Landasan Kami');
         $idResponse->assertSee('Integritas');
         $idResponse->assertSee('Inovasi');
         $idResponse->assertSee('Deskripsi integritas bisnis.');
@@ -143,7 +143,7 @@ class AboutPageTest extends TestCase
         );
 
         $enResponse = $this->get('/en/about');
-        $enResponse->assertSee('6 ANS Core Values');
+        $enResponse->assertSee('Our Foundational Values');
         $enResponse->assertSee('INTEGRITY');
         $enResponse->assertSee('INNOVATION');
         $enResponse->assertSee('Description of business integrity.');

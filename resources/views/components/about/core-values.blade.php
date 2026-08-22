@@ -12,12 +12,12 @@
                 {{ $currentLocale === 'en' ? 'Core Values' : 'Nilai Inti' }}
             </div>
             <h2 id="core-values-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-                {{ $currentLocale === 'en' ? '6 ANS Core Values' : '6 Nilai Inti ANS' }}
+                {{ $currentLocale === 'en' ? 'Our Foundational Values' : 'Nilai yang Menjadi Landasan Kami' }}
             </h2>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                 {{ $currentLocale === 'en'
-                    ? 'Six fundamental values that guide every decision, interaction, and innovation at ANS.'
-                    : 'Enam nilai fundamental yang memandu setiap keputusan, interaksi, dan inovasi di ANS.' }}
+                    ? 'Six fundamental values that guide every decision, interaction, and innovation at Abhipraya Nawasena Sejahtera.'
+                    : 'Enam nilai fundamental yang memandu setiap keputusan, interaksi, dan inovasi di Abhipraya Nawasena Sejahtera.' }}
             </p>
         </div>
 

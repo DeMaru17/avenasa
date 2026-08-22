@@ -23,7 +23,7 @@
                 {{ $currentLocale === 'en' ? 'Vision & Mission' : 'Visi & Misi' }}
             </div>
             <h2 id="vision-mission-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
-                {{ $currentLocale === 'en' ? 'ANS Direction & Purpose' : 'Arah & Tujuan ANS' }}
+                {{ $currentLocale === 'en' ? 'Being Part of a Better Future' : 'Menjadi Bagian dari Masa Depan yang Lebih Baik' }}
             </h2>
         </div>
 

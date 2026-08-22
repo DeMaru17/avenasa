@@ -1,17 +1,24 @@
 @extends('layouts.public')
 
-@section('title', __('Partners & Clients'))
-@section('meta_description', __('Mitra prinsipal manufaktur resmi dan daftar klien institusional terpercaya PT Abhipraya Nawasena Sejahtera.'))
+@php
+    $currentLocale = app()->getLocale();
+@endphp
+
+@section('title', $currentLocale === 'en' ? 'Partners & Clients - PT Abhipraya Nawasena Sejahtera' : 'Mitra & Klien - PT Abhipraya Nawasena Sejahtera')
+@section('meta_description', $currentLocale === 'en'
+    ? 'Official manufacturing principals and trusted institutional client network of PT Abhipraya Nawasena Sejahtera (ANS) in Indonesia.'
+    : 'Jaringan mitra prinsipal manufaktur resmi dan daftar klien institusional terpercaya PT Abhipraya Nawasena Sejahtera (ANS) di Indonesia.')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="max-w-3xl">
-        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            {{ __('Partners & Clients') }}
-        </h1>
-        <p class="mt-2 text-base text-slate-600">
-            {{ __('Distributor resmi peralatan kesehatan, diagnostik, dan laboratorium terkemuka di Indonesia. Melayani dengan standar mutu internasional sejak lebih dari 15 tahun.') }}
-        </p>
-    </div>
-</div>
+    {{-- 1. Hero / Page Header --}}
+    <x-partners-clients.hero />
+
+    {{-- 2. Official Principals / Brands Showcase --}}
+    <x-partners-clients.principals :brands="$brands" />
+
+    {{-- 3. Corporate & Institutional Clients Showcase --}}
+    <x-partners-clients.clients :clients="$clients" />
+
+    {{-- 4. Strategic Consultation & Quotation CTA --}}
+    <x-partners-clients.cta :profile="$companyProfile" />
 @endsection

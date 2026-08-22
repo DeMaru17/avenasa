@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Client;
 use App\Models\CompanyProfile;
 use App\Models\CoreValue;
 use App\Models\Management;
@@ -30,6 +32,17 @@ class PageController extends Controller
      */
     public function partnersClients(string $locale): View
     {
-        return view('pages.partners-clients');
+        $brands = Brand::active()
+            ->withCount(['products' => fn ($query) => $query->where('is_active', true)])
+            ->ordered()
+            ->get();
+        $clients = Client::active()->ordered()->get();
+        $companyProfile = CompanyProfile::first();
+
+        return view('pages.partners-clients', [
+            'brands' => $brands,
+            'clients' => $clients,
+            'companyProfile' => $companyProfile,
+        ]);
     }
 }
