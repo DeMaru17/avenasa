@@ -21,6 +21,7 @@ Route::prefix('{locale}')
         Route::get('/about', [PageController::class, 'about'])->name('about');
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+        Route::get('/products/{slug}/brochure', [ProductController::class, 'brochure'])->name('products.brochure');
         Route::get('/partners-clients', [PageController::class, 'partnersClients'])->name('partners-clients');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     });

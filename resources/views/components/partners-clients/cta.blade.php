@@ -36,9 +36,7 @@
                     rel="noopener noreferrer"
                     class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-semibold px-6 py-3.5 rounded-lg transition-all focus-ring text-base"
                 >
-                    <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.969.54 1.777.818 2.796.818 3.18 0 5.766-2.586 5.767-5.766.001-3.18-2.585-5.766-5.767-5.766zm0 10.362c-.886 0-1.611-.26-2.316-.678l-.165-.098-1.58.415.422-1.54-.108-.172c-.496-.79-1.026-1.57-1.026-2.523 0-2.536 2.064-4.6 4.601-4.6 2.537 0 4.601 2.064 4.6 4.6 0 2.536-2.064 4.6-4.601 4.6zm6.816-12.188c-1.803-1.805-4.2-2.798-6.755-2.799-5.26 0-9.54 4.28-9.542 9.54 0 1.68.438 3.32 1.272 4.764l-1.35 4.935 5.048-1.324c1.391.76 2.96 1.16 4.568 1.16h.004c5.259 0 9.539-4.28 9.541-9.541 0-2.551-.994-4.949-2.798-6.755z" />
-                    </svg>
+                    <x-icons.whatsapp class="w-5 h-5 text-emerald-600 flex-shrink-0" />
                     <span>{{ $currentLocale === 'en' ? 'Consult via WhatsApp' : 'Konsultasi via WhatsApp' }}</span>
                 </a>
             </div>

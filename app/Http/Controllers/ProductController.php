@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\CompanyProfile;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
 {
@@ -91,6 +95,33 @@ class ProductController extends Controller
             ->with(['category', 'brand', 'images'])
             ->firstOrFail();
 
-        return view('pages.products.show', compact('product'));
+        $companyProfile = CompanyProfile::first();
+
+        return view('pages.products.show', compact('product', 'companyProfile'));
+    }
+
+    /**
+     * Download the product brochure safely.
+     */
+    public function brochure(string $locale, string $slug): StreamedResponse
+    {
+        $column = $locale === 'en' ? 'slug_en' : 'slug_id';
+
+        $product = Product::query()
+            ->where('is_active', true)
+            ->where($column, $slug)
+            ->firstOrFail();
+
+        if (empty($product->brochure_path)) {
+            abort(404);
+        }
+
+        if (! Storage::disk('public')->exists($product->brochure_path)) {
+            abort(404);
+        }
+
+        $filename = Str::slug($product->name).'-brochure.pdf';
+
+        return Storage::disk('public')->download($product->brochure_path, $filename);
     }
 }

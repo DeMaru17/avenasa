@@ -68,9 +68,7 @@
         @if (!empty($whatsapp))
             <div class="flex items-start gap-4 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-teal-300 transition-all duration-200 group">
                 <div class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center flex-shrink-0 text-teal-700 group-hover:bg-teal-700 group-hover:text-white transition-colors duration-200" aria-hidden="true">
-                    <svg class="w-6 h-6 text-emerald-600 group-hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.969.54 1.777.818 2.796.818 3.18 0 5.766-2.586 5.767-5.766.001-3.18-2.585-5.766-5.767-5.766zm0 10.362c-.886 0-1.611-.26-2.316-.678l-.165-.098-1.58.415.422-1.54-.108-.172c-.496-.79-1.026-1.57-1.026-2.523 0-2.536 2.064-4.6 4.601-4.6 2.537 0 4.601 2.064 4.6 4.6 0 2.536-2.064 4.6-4.601 4.6zm6.816-12.188c-1.803-1.805-4.2-2.798-6.755-2.799-5.26 0-9.54 4.28-9.542 9.54 0 1.68.438 3.32 1.272 4.764l-1.35 4.935 5.048-1.324c1.391.76 2.96 1.16 4.568 1.16h.004c5.259 0 9.539-4.28 9.541-9.541 0-2.551-.994-4.949-2.798-6.755z" />
-                    </svg>
+                    <x-icons.whatsapp class="w-6 h-6 text-emerald-600 group-hover:text-white transition-colors duration-200" />
                 </div>
                 <div class="min-w-0">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">

@@ -1,32 +1,62 @@
 @extends('layouts.public')
 
-@section('title', $product->name)
+@php
+    $currentLocale = app()->getLocale();
+@endphp
+
+@section('title', $product->name . ' - PT Abhipraya Nawasena Sejahtera')
 @section('meta_description', $product->summary ?? $product->name)
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="mb-6">
-        <a href="{{ route('products.index') }}" class="text-sm font-medium text-teal-700 hover:text-teal-800 focus-ring rounded">
-            &larr; {{ __('Back to Product Catalog') }}
-        </a>
-    </div>
+<div class="py-8 sm:py-10 lg:py-14 pb-24 md:pb-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {{-- 1. Hierarchical Breadcrumb --}}
+        <x-product-detail.breadcrumb :product="$product" />
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">
-                {{ $product->name }}
-            </h1>
-            @if ($product->category)
-                <p class="text-sm font-semibold text-teal-700 mt-1">
-                    {{ $product->category->name }}
-                </p>
-            @endif
-            @if ($product->summary)
-                <p class="text-slate-600 mt-4 leading-relaxed">
-                    {{ $product->summary }}
-                </p>
-            @endif
+        {{-- 2. Main Product Showcase Grid (Gallery on Left, Identity & Action on Right) --}}
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {{-- Left Column: Product Gallery --}}
+            <div class="lg:col-span-6">
+                <x-product-detail.gallery :product="$product" />
+            </div>
+
+            {{-- Right Column: Identity & Primary CTA Card --}}
+            <div class="lg:col-span-6">
+                <x-product-detail.identity :product="$product" :profile="$companyProfile ?? null" />
+            </div>
+        </div>
+
+        {{-- 3. Technical Specifications --}}
+        <x-product-detail.specifications :product="$product" />
+
+        {{-- 4. Full Product Description --}}
+        <x-product-detail.description :product="$product" />
+
+        {{-- 5. Bottom Navigation Bar --}}
+        <div class="mt-12 lg:mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <a
+                href="{{ route('products.index') }}"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-teal-700 font-semibold text-sm shadow-xs transition-all focus-ring"
+            >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                <span>{{ $currentLocale === 'en' ? 'Back to Product Catalog' : 'Kembali ke Katalog Produk' }}</span>
+            </a>
+
+            <a
+                href="{{ route('contact', ['product_id' => $product->id]) }}"
+                class="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm shadow-sm transition-all focus-ring active:scale-[0.98]"
+            >
+                <span>{{ $currentLocale === 'en' ? 'Request a Quotation' : 'Minta Penawaran' }}</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
     </div>
 </div>
+
+{{-- 6. Mobile Sticky Bottom Action Bar (< 768px) --}}
+<x-product-detail.mobile-sticky-cta :product="$product" :profile="$companyProfile ?? null" />
 @endsection

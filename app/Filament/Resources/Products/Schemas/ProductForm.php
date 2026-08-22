@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Products\Schemas;
 use App\Models\Product;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -63,14 +62,16 @@ class ProductForm
                             ->placeholder('Brief 1-2 sentence summary for product catalog cards')
                             ->rows(2)
                             ->nullable(),
-                        RichEditor::make('description_id')
+                        Textarea::make('description_id')
                             ->label('Deskripsi Lengkap (ID)')
                             ->placeholder('Uraian lengkap fitur, keunggulan, dan aplikasi produk...')
+                            ->rows(4)
                             ->nullable()
                             ->columnSpanFull(),
-                        RichEditor::make('description_en')
+                        Textarea::make('description_en')
                             ->label('Deskripsi Lengkap (EN)')
                             ->placeholder('Detailed features, advantages, and product applications...')
+                            ->rows(4)
                             ->nullable()
                             ->columnSpanFull(),
                     ])->columns(2),

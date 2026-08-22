@@ -49,8 +49,8 @@ class LocalizationService
         $routeName = $currentRoute->getName();
         $currentLocale = $this->getCurrentLocale();
 
-        // 1. Product Detail (products.show)
-        if ($routeName === 'products.show') {
+        // 1. Product Detail (products.show & products.brochure)
+        if ($routeName === 'products.show' || $routeName === 'products.brochure') {
             $slug = $currentRoute->parameter('slug');
             $currentColumn = $currentLocale === 'en' ? 'slug_en' : 'slug_id';
             $targetColumn = $targetLocale === 'en' ? 'slug_en' : 'slug_id';
@@ -58,7 +58,7 @@ class LocalizationService
             $product = Product::where($currentColumn, $slug)->first();
 
             if ($product && ! empty($product->{$targetColumn})) {
-                return route('products.show', [
+                return route($routeName, [
                     'locale' => $targetLocale,
                     'slug' => $product->{$targetColumn},
                 ]);
