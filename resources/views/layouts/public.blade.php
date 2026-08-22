@@ -11,6 +11,11 @@
     {{-- Meta Description --}}
     <meta name="description" content="@yield('meta_description', __('Leading distributor of laboratory, medical, and diagnostic equipment in Indonesia.'))">
 
+    {{-- Meta Robots --}}
+    @hasSection('robots')
+        <meta name="robots" content="@yield('robots')">
+    @endif
+
     {{-- SEO Canonical & Hreflang Alternate URLs --}}
     @php
         $localizationService = app(\App\Services\LocalizationService::class);

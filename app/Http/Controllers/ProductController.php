@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -9,11 +11,71 @@ use Illuminate\View\View;
 class ProductController extends Controller
 {
     /**
-     * Display the product catalog listing page.
+     * Display the product catalog listing page with dual-filtering, AND logic, and pagination.
      */
     public function index(string $locale, Request $request): View
     {
-        return view('pages.products.index');
+        $categorySlug = $request->query('category');
+        $brandSlug = $request->query('brand');
+
+        $selectedCategory = null;
+        $selectedBrand = null;
+
+        // Base query: only products where product, category, and brand are ALL active
+        $query = Product::query()
+            ->where('is_active', true)
+            ->whereHas('category', fn ($q) => $q->where('is_active', true))
+            ->whereHas('brand', fn ($q) => $q->where('is_active', true))
+            ->with(['category', 'brand']);
+
+        // 1. Category Filter (Localized slug matching)
+        if (! empty($categorySlug) && is_string($categorySlug)) {
+            $catColumn = $locale === 'en' ? 'slug_en' : 'slug_id';
+            $selectedCategory = Category::active()->where($catColumn, $categorySlug)->first();
+
+            if ($selectedCategory) {
+                $query->where('category_id', $selectedCategory->id);
+            } else {
+                // Invalid category slug: graceful zero results
+                $query->whereRaw('1 = 0');
+            }
+        }
+
+        // 2. Brand Filter (Universal slug matching)
+        if (! empty($brandSlug) && is_string($brandSlug)) {
+            $selectedBrand = Brand::active()->where('slug', $brandSlug)->first();
+
+            if ($selectedBrand) {
+                $query->where('brand_id', $selectedBrand->id);
+            } else {
+                // Invalid brand slug: graceful zero results
+                $query->whereRaw('1 = 0');
+            }
+        }
+
+        // Default Ordering: sort_order ASC, created_at DESC
+        $products = $query
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(12)
+            ->withQueryString();
+
+        // Load active options for Sidebar & Mobile Drawer
+        $categories = Category::active()->ordered()->get();
+        $brands = Brand::active()->ordered()->get();
+
+        $activeFilterCount = ($selectedCategory ? 1 : 0) + ($selectedBrand ? 1 : 0);
+
+        return view('pages.products.index', [
+            'products' => $products,
+            'categories' => $categories,
+            'brands' => $brands,
+            'selectedCategory' => $selectedCategory,
+            'selectedBrand' => $selectedBrand,
+            'selectedCategorySlug' => $categorySlug,
+            'selectedBrandSlug' => $brandSlug,
+            'activeFilterCount' => $activeFilterCount,
+        ]);
     }
 
     /**
