@@ -20,6 +20,7 @@ class ProductsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->reorderable('sort_order')
             ->columns([
                 ImageColumn::make('primary_image_path')
                     ->label('Foto')

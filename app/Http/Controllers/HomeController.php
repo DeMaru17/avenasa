@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Client;
 use App\Models\CompanyProfile;
 use App\Models\HeroBanner;
+use App\Models\Product;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -13,9 +16,13 @@ class HomeController extends Controller
      */
     public function index(string $locale): View
     {
-        $hero = HeroBanner::active()->ordered()->first();
+        $heroBanners = HeroBanner::active()->ordered()->get();
+        $hero = $heroBanners->first();
         $companyProfile = CompanyProfile::first();
+        $featuredProducts = Product::with(['category', 'brand'])->active()->ordered()->take(12)->get();
+        $brands = Brand::active()->ordered()->take(12)->get();
+        $clients = Client::active()->ordered()->take(12)->get();
 
-        return view('pages.home', compact('hero', 'companyProfile'));
+        return view('pages.home', compact('heroBanners', 'hero', 'companyProfile', 'featuredProducts', 'brands', 'clients'));
     }
 }

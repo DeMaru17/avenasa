@@ -113,8 +113,79 @@ class HeroBannerIntegrationTest extends TestCase
         $response = $this->get('/id');
 
         $response->assertStatus(200);
-        $response->assertSee('Hero Pertama');
-        $response->assertDontSee('Hero Kedua');
+        $content = $response->getContent();
+        $this->assertNotFalse(strpos($content, 'Hero Pertama'));
+        $this->assertNotFalse(strpos($content, 'Hero Kedua'));
+        // Verify Hero Pertama is ordered before Hero Kedua
+        $this->assertTrue(strpos($content, 'Hero Pertama') < strpos($content, 'Hero Kedua'));
+    }
+
+    public function test_single_hero_banner_renders_without_carousel_navigation_controls(): void
+    {
+        HeroBanner::create([
+            'title_id' => 'Hero Tunggal',
+            'title_en' => 'Single Hero',
+            'subtitle_id' => 'Subtitle Tunggal',
+            'subtitle_en' => 'Single Subtitle',
+            'image_path' => '',
+            'button_text_id' => 'CTA Tunggal',
+            'button_text_en' => 'Single CTA',
+            'button_url' => '/products',
+            'sort_order' => 1,
+            'is_active' => true,
+        ]);
+
+        $response = $this->get('/id');
+
+        $response->assertStatus(200);
+        $response->assertSee('Hero Tunggal');
+        $response->assertDontSee('aria-roledescription="carousel"', false);
+    }
+
+    public function test_multiple_hero_banners_render_with_carousel_navigation_controls(): void
+    {
+        HeroBanner::create([
+            'title_id' => 'Slide 1',
+            'title_en' => 'Slide 1 EN',
+            'image_path' => '',
+            'sort_order' => 1,
+            'is_active' => true,
+        ]);
+
+        HeroBanner::create([
+            'title_id' => 'Slide 2',
+            'title_en' => 'Slide 2 EN',
+            'image_path' => '',
+            'sort_order' => 2,
+            'is_active' => true,
+        ]);
+
+        $response = $this->get('/id');
+
+        $response->assertStatus(200);
+        $response->assertSee('aria-roledescription="carousel"', false);
+        $response->assertSee('aria-label="Slide 1 of 2"', false);
+        $response->assertSee('aria-label="Slide 2 of 2"', false);
+    }
+
+    public function test_hero_banner_external_url_is_not_localized(): void
+    {
+        HeroBanner::create([
+            'title_id' => 'Hero Eksternal',
+            'title_en' => 'External Hero',
+            'image_path' => 'hero-banners/ext.jpg',
+            'button_text_id' => 'Kunjungi Mitra',
+            'button_text_en' => 'Visit Partner',
+            'button_url' => 'https://example.com/partner',
+            'sort_order' => 1,
+            'is_active' => true,
+        ]);
+
+        $response = $this->get('/id');
+
+        $response->assertStatus(200);
+        $response->assertSee('href="https://example.com/partner"', false);
+        $response->assertDontSee('href="http://127.0.0.1:8000/id/https://example.com/partner"', false);
     }
 
     public function test_homepage_handles_empty_hero_banner_without_error(): void
