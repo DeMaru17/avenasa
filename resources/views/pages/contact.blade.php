@@ -1,17 +1,33 @@
 @extends('layouts.public')
 
-@section('title', __('Contact'))
-@section('meta_description', __('Hubungi PT Abhipraya Nawasena Sejahtera untuk konsultasi teknis, pengadaan alat laboratorium, dan permintaan penawaran harga.'))
+@php
+    $currentLocale = app()->getLocale();
+@endphp
+
+@section('title', $currentLocale === 'en' ? 'Contact - PT Abhipraya Nawasena Sejahtera' : 'Kontak - PT Abhipraya Nawasena Sejahtera')
+@section('meta_description', $currentLocale === 'en'
+    ? 'Contact PT Abhipraya Nawasena Sejahtera (ANS) for technical consultation, laboratory procurement, and price quotation requests in Indonesia.'
+    : 'Hubungi PT Abhipraya Nawasena Sejahtera (ANS) untuk konsultasi teknis, pengadaan alat laboratorium, dan permintaan penawaran harga resmi.')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="max-w-3xl">
-        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            {{ __('Contact Us') }}
-        </h1>
-        <p class="mt-2 text-base text-slate-600">
-            {{ __('Distributor resmi peralatan kesehatan, diagnostik, dan laboratorium terkemuka di Indonesia. Melayani dengan standar mutu internasional sejak lebih dari 15 tahun.') }}
-        </p>
-    </div>
-</div>
+    {{-- 1. Hero / Page Header --}}
+    <x-contact.hero />
+
+    {{-- 2. Main Content Section (2 Columns on Desktop) --}}
+    <section class="py-12 lg:py-16 bg-white border-b border-slate-100" aria-label="{{ __('Contact and Quotation') }}">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {{-- Left Column: Official Contact Channels & Google Maps --}}
+                <div class="lg:col-span-5 space-y-8">
+                    <x-contact.information :profile="$companyProfile" />
+                    <x-contact.map :profile="$companyProfile" />
+                </div>
+
+                {{-- Right Column: Quotation Request Form Shell --}}
+                <div class="lg:col-span-7">
+                    <x-contact.form-shell />
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

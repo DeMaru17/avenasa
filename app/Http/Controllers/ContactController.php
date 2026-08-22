@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanyProfile;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,6 +13,10 @@ class ContactController extends Controller
      */
     public function index(string $locale, Request $request): View
     {
-        return view('pages.contact');
+        $companyProfile = CompanyProfile::first();
+
+        return view('pages.contact', [
+            'companyProfile' => $companyProfile,
+        ]);
     }
 }

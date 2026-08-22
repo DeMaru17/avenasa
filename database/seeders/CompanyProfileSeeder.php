@@ -27,7 +27,7 @@ class CompanyProfileSeeder extends Seeder
                 'phone' => '021 39722772',
                 'whatsapp' => '0822-614-614-00',
                 'email' => 'admin@avenasa.co.id',
-                'maps_embed_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.3408018314136!2d106.92349797499138!3d-6.350541793639343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e699320e8bfa177%3A0x6b403fbe4019a16f!2sMensana%20Tower!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid',
+                'maps_embed_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d495.64347009172025!2d106.91750303289115!3d-6.3749180849670095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69935bdba4faef%3A0x3f62df6121003392!2sMENSANA%20TOWER%20CIBUBUR!5e0!3m2!1sid!2sid!4v1787405902752!5m2!1sid!2sid',
             ]
         );
     }
