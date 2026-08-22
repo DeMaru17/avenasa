@@ -16,7 +16,7 @@
                 <img src="{{ asset('images/logo-ans.png') }}" alt="ANS Logo" class="h-9 md:h-10 w-auto object-contain" width="40" height="40">
                 <div class="flex flex-col leading-none">
                     <span class="text-[11px] font-semibold tracking-widest text-teal-700 uppercase" style="letter-spacing: 0.18em">PT Abhipraya Nawasena</span>
-                    <span class="text-[15px] font-bold text-slate-900 tracking-tight">Sejahtera</span>
+                    <span class="text-[15px] font-semibold text-slate-900 tracking-tight">Sejahtera</span>
                 </div>
             </a>
 

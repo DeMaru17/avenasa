@@ -57,11 +57,15 @@ class PublicLayoutTest extends TestCase
             'email' => 'admin@avenasa.co.id',
         ]);
 
-        $response = $this->get('/id');
+        $responseId = $this->get('/id');
+        $responseId->assertStatus(200);
+        $responseId->assertSee('Mensana Tower Lt. 15');
+        $responseId->assertSee('(021) 39722772');
+        $responseId->assertSee('admin@avenasa.co.id');
+        $responseId->assertSee('Your Trusted Laboratory Partner');
 
-        $response->assertStatus(200);
-        $response->assertSee('Mensana Tower Lt. 15');
-        $response->assertSee('(021) 39722772');
-        $response->assertSee('admin@avenasa.co.id');
+        $responseEn = $this->get('/en');
+        $responseEn->assertStatus(200);
+        $responseEn->assertSee('Your Trusted Laboratory Partner');
     }
 }

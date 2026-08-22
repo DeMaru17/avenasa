@@ -20,11 +20,11 @@
                     <img src="{{ asset('images/logo-ans.png') }}" alt="ANS" class="h-10 w-auto brightness-0 invert object-contain" width="40" height="40">
                     <div>
                         <div class="text-[10px] font-semibold tracking-widest text-teal-400 uppercase" style="letter-spacing: 0.15em">PT Abhipraya Nawasena</div>
-                        <div class="text-[14px] font-bold text-white tracking-tight">Sejahtera</div>
+                        <div class="text-[14px] font-semibold text-white tracking-tight">Sejahtera</div>
                     </div>
                 </div>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    {{ __('Distributor resmi peralatan kesehatan, diagnostik, dan laboratorium terkemuka di Indonesia. Melayani dengan standar mutu internasional sejak lebih dari 15 tahun.') }}
+                <p class="text-slate-400 text-sm leading-relaxed font-semibold">
+                    {{ $profile?->tagline_en ?? 'Empowering Science for a Prosperous Future' }}
                 </p>
             </div>
 
