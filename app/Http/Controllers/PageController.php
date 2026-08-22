@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanyProfile;
+use App\Models\CoreValue;
+use App\Models\Management;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -11,7 +14,15 @@ class PageController extends Controller
      */
     public function about(string $locale): View
     {
-        return view('pages.about');
+        $companyProfile = CompanyProfile::first();
+        $coreValues = CoreValue::active()->ordered()->get();
+        $managements = Management::active()->ordered()->get();
+
+        return view('pages.about', [
+            'companyProfile' => $companyProfile,
+            'coreValues' => $coreValues,
+            'managements' => $managements,
+        ]);
     }
 
     /**

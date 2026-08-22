@@ -11,7 +11,7 @@
     }
 @endphp
 
-<section class="py-16 lg:py-20 bg-gradient-to-r from-teal-800 via-teal-900 to-slate-950 text-white relative overflow-hidden" aria-labelledby="strategic-cta-heading">
+<section class="py-16 lg:py-20 bg-teal-800 text-white relative overflow-hidden" aria-labelledby="strategic-cta-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div class="max-w-3xl mx-auto">
             <h2 id="strategic-cta-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 tracking-tight">

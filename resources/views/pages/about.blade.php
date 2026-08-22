@@ -1,19 +1,30 @@
 @extends('layouts.public')
 
-@section('title', __('About Us'))
-@section('meta_description', __('Tentang PT Abhipraya Nawasena Sejahtera - Sejarah, komitmen mutu, visi misi, dan nilai inti perusahaan.'))
+@php
+    $currentLocale = app()->getLocale();
+@endphp
+
+@section('title', $currentLocale === 'en' ? 'About Us - PT Abhipraya Nawasena Sejahtera' : 'Tentang Kami - PT Abhipraya Nawasena Sejahtera')
+@section('meta_description', $currentLocale === 'en'
+    ? 'Learn about PT Abhipraya Nawasena Sejahtera (ANS) - Official distributor of life science, laboratory, medical, and diagnostic equipment in Indonesia.'
+    : 'Tentang PT Abhipraya Nawasena Sejahtera (ANS) - Distributor resmi terkemuka peralatan ilmu hayati (life science), laboratorium, medis, dan diagnostik di Indonesia.')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="max-w-3xl mx-auto">
-        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            {{ __('About Us') }}
-        </h1>
-        <div class="mt-6 prose prose-slate max-w-none text-slate-600 leading-relaxed space-y-4">
-            <p>
-                {{ __('Distributor resmi peralatan kesehatan, diagnostik, dan laboratorium terkemuka di Indonesia. Melayani dengan standar mutu internasional sejak lebih dari 15 tahun.') }}
-            </p>
-        </div>
-    </div>
-</div>
+    {{-- 1. Hero / Page Header --}}
+    <x-about.hero />
+
+    {{-- 2. Company Profile Narrative & Office Photo --}}
+    <x-about.company-profile :profile="$companyProfile" />
+
+    {{-- 3. Vision & Mission --}}
+    <x-about.vision-mission :profile="$companyProfile" />
+
+    {{-- 4. Core Values --}}
+    <x-about.core-values :values="$coreValues" />
+
+    {{-- 5. Management / Founders (Only renders when is_active = true) --}}
+    <x-about.management :managements="$managements" />
+
+    {{-- 6. Product Portfolio CTA Banner --}}
+    <x-about.cta />
 @endsection
