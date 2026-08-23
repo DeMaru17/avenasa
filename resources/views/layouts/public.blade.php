@@ -5,33 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Page Title --}}
-    <title>@hasSection('title')@yield('title') - @endif{{ __('Official Website of PT Abhipraya Nawasena Sejahtera') }}</title>
-
-    {{-- Meta Description --}}
-    <meta name="description" content="@yield('meta_description', __('Leading distributor of laboratory, medical, and diagnostic equipment in Indonesia.'))">
-
-    {{-- Meta Robots --}}
-    @hasSection('robots')
-        <meta name="robots" content="@yield('robots')">
-    @endif
-
-    {{-- SEO Canonical & Hreflang Alternate URLs --}}
-    @php
-        $localizationService = app(\App\Services\LocalizationService::class);
-        $canonicalUrl = $localizationService->getCanonicalUrl();
-        $hreflangs = $localizationService->getHreflangUrls();
-    @endphp
-    <link rel="canonical" href="{{ $canonicalUrl }}">
-    <link rel="alternate" hreflang="id" href="{{ $hreflangs['id'] }}">
-    <link rel="alternate" hreflang="en" href="{{ $hreflangs['en'] }}">
-    <link rel="alternate" hreflang="x-default" href="{{ $hreflangs['x-default'] }}">
-
-    {{-- OpenGraph Basic Foundation --}}
-    <meta property="og:locale" content="{{ app()->getLocale() === 'id' ? 'id_ID' : 'en_US' }}">
-    <meta property="og:url" content="{{ $canonicalUrl }}">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="PT Abhipraya Nawasena Sejahtera">
+    {{-- Centralized SEO Metadata & Structured Data --}}
+    <x-seo.meta-head />
 
     {{-- Favicon --}}
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon/favicon.ico') }}">
@@ -39,6 +14,24 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon/favicon-16x16.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('images/favicon/site.webmanifest') }}">
+
+    {{-- Centralized Google Analytics 4 (Client-Side, Environment-Aware, Strictly Non-Blocking) --}}
+    @php
+        $gaId = config('services.google.analytics_id');
+        $isLocal = app()->isLocal();
+        $gaEnabled = !empty($gaId) && (!$isLocal || env('GA_FORCE_ENABLE', false));
+    @endphp
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+    </script>
+    @if ($gaEnabled)
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
+        <script>
+            gtag('js', new Date());
+            gtag('config', '{{ $gaId }}');
+        </script>
+    @endif
 
     {{-- Vite Assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])

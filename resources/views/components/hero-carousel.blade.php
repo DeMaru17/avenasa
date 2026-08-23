@@ -29,6 +29,7 @@
                 <div class="flex flex-wrap gap-4">
                     <a
                         href="{{ route('products.index') }}"
+                        onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackHeroCta({ bannerId: 0, locale: '{{ $currentLocale }}', ctaType: 'primary_cta', destinationType: 'internal_catalog' });"
                         class="inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-6 py-3.5 rounded-lg shadow-lg transition-all focus-ring text-base active:scale-[0.98]"
                     >
                         <span>{{ $currentLocale === 'en' ? 'Explore Product Catalog' : 'Jelajahi Katalog Produk' }}</span>
@@ -38,6 +39,7 @@
                     </a>
                     <a
                         href="{{ route('about') }}"
+                        onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackHeroCta({ bannerId: 0, locale: '{{ $currentLocale }}', ctaType: 'secondary_cta', destinationType: 'internal_page' });"
                         class="inline-flex items-center justify-center gap-2 bg-white/15 backdrop-blur-sm hover:bg-white/25 border border-white/30 text-white font-semibold px-6 py-3.5 rounded-lg transition-all focus-ring text-base"
                     >
                         <span>{{ $currentLocale === 'en' ? 'Company Profile' : 'Profil Perusahaan' }}</span>
@@ -97,6 +99,7 @@
                     @if (!empty($singleHero->buttonText) && !empty($ctaUrl))
                         <a
                             href="{{ $ctaUrl }}"
+                            onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackHeroCta({ bannerId: {{ $singleHero->id }}, locale: '{{ $currentLocale }}', ctaType: 'primary_cta', destinationType: '{{ $isExternal ? 'external' : (str_contains($ctaUrl, 'products') ? 'internal_catalog' : 'internal_page') }}' });"
                             @if($isExternal) target="_blank" rel="noopener noreferrer" @endif
                             class="inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-6 py-3.5 rounded-lg shadow-lg transition-all focus-ring text-base active:scale-[0.98]"
                         >
@@ -108,6 +111,7 @@
                     @endif
                     <a
                         href="{{ route('about') }}"
+                        onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackHeroCta({ bannerId: {{ $singleHero->id }}, locale: '{{ $currentLocale }}', ctaType: 'secondary_cta', destinationType: 'internal_page' });"
                         class="inline-flex items-center justify-center gap-2 bg-white/15 backdrop-blur-sm hover:bg-white/25 border border-white/30 text-white font-semibold px-6 py-3.5 rounded-lg transition-all focus-ring text-base"
                     >
                         <span>{{ $currentLocale === 'en' ? 'Company Profile' : 'Profil Perusahaan' }}</span>
@@ -243,6 +247,7 @@
                             @if (!empty($banner->buttonText) && !empty($ctaUrl))
                                 <a
                                     href="{{ $ctaUrl }}"
+                                    onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackHeroCta({ bannerId: {{ $banner->id }}, locale: '{{ $currentLocale }}', ctaType: 'primary_cta', destinationType: '{{ $isExternal ? 'external' : (str_contains($ctaUrl, 'products') ? 'internal_catalog' : 'internal_page') }}' });"
                                     @if($isExternal) target="_blank" rel="noopener noreferrer" @endif
                                     class="inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold px-6 py-3.5 rounded-lg shadow-lg transition-all focus-ring text-base active:scale-[0.98]"
                                 >
@@ -254,6 +259,7 @@
                             @endif
                             <a
                                 href="{{ route('about') }}"
+                                onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackHeroCta({ bannerId: {{ $banner->id }}, locale: '{{ $currentLocale }}', ctaType: 'secondary_cta', destinationType: 'internal_page' });"
                                 class="inline-flex items-center justify-center gap-2 bg-white/15 backdrop-blur-sm hover:bg-white/25 border border-white/30 text-white font-semibold px-6 py-3.5 rounded-lg transition-all focus-ring text-base"
                             >
                                 <span>{{ $currentLocale === 'en' ? 'Company Profile' : 'Profil Perusahaan' }}</span>

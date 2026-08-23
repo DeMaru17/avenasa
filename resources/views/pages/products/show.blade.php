@@ -2,10 +2,89 @@
 
 @php
     $currentLocale = app()->getLocale();
+    $brandName = $product->brand->name ?? 'ANS';
+    $metaTitle = $product->name . ' - ' . $brandName . ' | PT Abhipraya Nawasena Sejahtera';
+    $metaDescription = !empty($product->summary) ? $product->summary : Str::limit(strip_tags($product->description ?? ''), 160);
 @endphp
 
-@section('title', $product->name . ' - PT Abhipraya Nawasena Sejahtera')
-@section('meta_description', $product->summary ?? $product->name)
+@section('title', $metaTitle)
+@section('meta_description', $metaDescription)
+
+@if (!empty($product->primary_image_path))
+    @section('og_image', asset('storage/' . $product->primary_image_path))
+@endif
+
+@if (empty($product->slug_en))
+    @section('omit_hreflang_en', 'true')
+@endif
+
+@section('structured_data')
+@php
+    $productSchema = [
+        '@context' => 'https://schema.org/',
+        '@type' => 'Product',
+        'name' => $product->name,
+        'image' => !empty($product->primary_image_path) ? [asset('storage/' . $product->primary_image_path)] : [],
+        'description' => $metaDescription,
+    ];
+    if ($product->brand) {
+        $productSchema['brand'] = [
+            '@type' => 'Brand',
+            'name' => $product->brand->name,
+        ];
+    }
+    if ($product->category) {
+        $productSchema['category'] = $product->category->name;
+    }
+
+    $breadcrumbSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => $currentLocale === 'en' ? 'Home' : 'Beranda',
+                'item' => url('/' . $currentLocale),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => $currentLocale === 'en' ? 'Products' : 'Produk',
+                'item' => url('/' . $currentLocale . '/products'),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $product->name,
+                'item' => url('/' . $currentLocale . '/products/' . ($currentLocale === 'en' ? ($product->slug_en ?: $product->slug_id) : $product->slug_id)),
+            ],
+        ],
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($productSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.ANSAnalytics) {
+            window.ANSAnalytics.trackViewProduct({
+                productId: {{ $product->id }},
+                productName: "{{ addslashes($product->name) }}",
+                locale: "{{ $currentLocale }}",
+                categoryName: "{{ addslashes($product->category->name ?? '') }}",
+                brandName: "{{ addslashes($product->brand->name ?? '') }}"
+            });
+        }
+    });
+</script>
+@endpush
 
 @section('content')
 <div class="py-8 sm:py-10 lg:py-14 pb-24 md:pb-14">
@@ -46,6 +125,7 @@
 
             <a
                 href="{{ route('contact', ['product_id' => $product->id]) }}"
+                onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackStartQuotation({ source: 'product_detail', locale: '{{ $currentLocale }}', productId: {{ $product->id }} });"
                 class="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm shadow-sm transition-all focus-ring active:scale-[0.98]"
             >
                 <span>{{ $currentLocale === 'en' ? 'Request a Quotation' : 'Minta Penawaran' }}</span>

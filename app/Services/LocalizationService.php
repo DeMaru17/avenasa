@@ -138,6 +138,35 @@ class LocalizationService
      */
     public function getHreflangUrls(?Request $request = null): array
     {
+        $request = $request ?? request();
+        $currentRoute = $request->route();
+        $routeName = $currentRoute?->getName();
+
+        if ($routeName === 'products.show' || $routeName === 'products.brochure') {
+            $slug = $currentRoute->parameter('slug');
+            $currentLocale = $this->getCurrentLocale();
+            $currentColumn = $currentLocale === 'en' ? 'slug_en' : 'slug_id';
+
+            $product = Product::where($currentColumn, $slug)->first();
+
+            $idUrl = (! empty($product?->slug_id)) ? route('products.show', ['locale' => 'id', 'slug' => $product->slug_id]) : null;
+            $enUrl = (! empty($product?->slug_en)) ? route('products.show', ['locale' => 'en', 'slug' => $product->slug_en]) : null;
+            $xDefault = $idUrl ?? $enUrl ?? url('/id');
+
+            $hreflangs = [
+                'x-default' => $xDefault,
+            ];
+
+            if ($idUrl) {
+                $hreflangs['id'] = $idUrl;
+            }
+            if ($enUrl) {
+                $hreflangs['en'] = $enUrl;
+            }
+
+            return $hreflangs;
+        }
+
         $idUrl = $this->getCanonicalUrl('id', $request);
         $enUrl = $this->getCanonicalUrl('en', $request);
 

@@ -69,6 +69,7 @@
         {{-- Primary Quotation CTA --}}
         <a
             href="{{ $quotationUrl }}"
+            onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackStartQuotation({ source: 'product_detail', locale: '{{ $currentLocale }}', productId: {{ $product->id }} });"
             class="w-full inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white font-bold py-3.5 px-6 rounded-xl shadow-sm transition-all focus-ring text-base active:scale-[0.99]"
         >
             <span>{{ $currentLocale === 'en' ? 'Request a Quotation' : 'Minta Penawaran Harga' }}</span>
@@ -82,6 +83,7 @@
             <a
                 href="{{ $brochureUrl }}"
                 target="_blank"
+                onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackDownloadBrochure({ productId: {{ $product->id }}, productName: '{{ addslashes($product->name) }}', locale: '{{ $currentLocale }}' });"
                 class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-semibold py-3 px-6 rounded-xl shadow-xs transition-all focus-ring text-sm active:scale-[0.99]"
             >
                 <svg class="w-4 h-4 text-rose-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
@@ -97,6 +99,7 @@
                 href="{{ $whatsappUrl }}"
                 target="_blank"
                 rel="noopener noreferrer"
+                onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackWhatsApp({ sourcePage: 'product_detail', locale: '{{ $currentLocale }}', productId: {{ $product->id }} });"
                 class="w-full inline-flex items-center justify-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium py-2.5 px-6 rounded-xl transition-all focus-ring text-sm active:scale-[0.99]"
             >
                 <x-icons.whatsapp class="w-4 h-4 text-emerald-600 flex-shrink-0" />

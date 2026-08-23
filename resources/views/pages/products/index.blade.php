@@ -5,13 +5,34 @@
     $hasFilterQuery = request()->has('category') || request()->has('brand');
 @endphp
 
-@section('title', $currentLocale === 'en' ? 'Product Catalog - PT Abhipraya Nawasena Sejahtera' : 'Katalog Produk - PT Abhipraya Nawasena Sejahtera')
+@section('title', $currentLocale === 'en' ? 'Medical & Laboratory Product Catalog | PT Abhipraya Nawasena Sejahtera' : 'Katalog Produk Medis & Laboratorium | PT Abhipraya Nawasena Sejahtera')
 @section('meta_description', $currentLocale === 'en'
     ? 'Browse our complete catalog of laboratory instruments, diagnostics equipment, reagents, and life science solutions.'
     : 'Jelajahi katalog lengkap peralatan laboratorium, alat diagnostik, reagen kimia, dan solusi life science PT Abhipraya Nawasena Sejahtera.')
 
 @if ($hasFilterQuery)
     @section('robots', 'noindex, follow')
+    @section('canonical', route('products.index', ['locale' => $currentLocale]))
+@endif
+
+@if ($hasFilterQuery && $activeFilterCount > 0)
+    @php
+        $filterType = ($selectedCategory && $selectedBrand) ? 'combined' : ($selectedCategory ? 'category' : 'brand');
+    @endphp
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.ANSAnalytics) {
+                window.ANSAnalytics.trackProductFilter({
+                    filterType: '{{ $filterType }}',
+                    locale: '{{ $currentLocale }}',
+                    categorySlug: '{{ $selectedCategorySlug ?? '' }}',
+                    brandSlug: '{{ $selectedBrandSlug ?? '' }}'
+                });
+            }
+        });
+    </script>
+    @endpush
 @endif
 
 @section('content')

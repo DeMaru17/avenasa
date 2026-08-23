@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /filament
+Disallow: /*?*product_id=*
+
+Sitemap: https://avenasa.co.id/sitemap.xml

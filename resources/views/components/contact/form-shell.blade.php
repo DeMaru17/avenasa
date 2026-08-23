@@ -32,10 +32,36 @@
     {{-- GA4 Conversion Event Trigger (Post-Success Only, Non-PII) --}}
     @if (session('ga4_event'))
         <script>
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({!! json_encode(session('ga4_event')) !!});
+            document.addEventListener('DOMContentLoaded', () => {
+                if (window.ANSAnalytics) {
+                    window.ANSAnalytics.trackSubmitQuotation({
+                        hasCompany: {{ session('ga4_event.has_company') ? 'true' : 'false' }},
+                        source: '{{ session('ga4_event.source') }}',
+                        locale: '{{ session('ga4_event.locale') }}',
+                        productId: {{ !empty(session('ga4_event.product_id')) ? session('ga4_event.product_id') : 'null' }}
+                    });
+                }
+            });
         </script>
     @endif
+
+    {{-- Start Quotation Funnel Tracker (Direct Entry & Deduplication) --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('#quotation-form-card form');
+            if (form) {
+                form.addEventListener('focusin', () => {
+                    if (window.ANSAnalytics) {
+                        window.ANSAnalytics.trackStartQuotation({
+                            source: '{{ $requestedProduct ? 'product_detail' : 'contact_page' }}',
+                            locale: '{{ $currentLocale }}',
+                            productId: {{ $requestedProduct ? $requestedProduct->id : 'null' }}
+                        });
+                    }
+                }, { once: true });
+            }
+        });
+    </script>
 
     {{-- Product Context Banner (when accessed via Product Detail CTA) --}}
     @if ($requestedProduct)

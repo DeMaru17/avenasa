@@ -78,6 +78,7 @@
                         href="https://wa.me/{{ $whatsappClean }}"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackWhatsApp({ sourcePage: 'contact_page', locale: '{{ $currentLocale }}' });"
                         class="text-sm sm:text-base font-semibold text-teal-700 hover:text-teal-800 transition-colors focus-ring rounded"
                     >
                         {{ $whatsapp }}

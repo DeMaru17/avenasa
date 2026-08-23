@@ -38,6 +38,7 @@
                     href="https://wa.me/{{ $whatsappClean }}"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackWhatsApp({ sourcePage: 'home', locale: '{{ $currentLocale }}' });"
                     class="inline-flex items-center gap-2 bg-teal-700/80 hover:bg-teal-700 text-white font-semibold px-6 py-3.5 rounded-lg border border-teal-500/30 transition-all focus-ring text-base active:scale-[0.98]"
                 >
                     <x-icons.whatsapp class="w-5 h-5 text-emerald-400 flex-shrink-0" />

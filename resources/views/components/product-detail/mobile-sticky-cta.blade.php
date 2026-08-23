@@ -27,6 +27,7 @@
         {{-- Primary Quotation CTA --}}
         <a
             href="{{ $quotationUrl }}"
+            onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackStartQuotation({ source: 'product_detail', locale: '{{ $currentLocale }}', productId: {{ $product->id }} });"
             class="flex-1 inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 px-4 rounded-xl shadow-sm transition-all focus-ring text-sm min-h-[44px] active:scale-[0.99]"
         >
             <span>{{ $currentLocale === 'en' ? 'Request a Quotation' : 'Minta Penawaran' }}</span>
@@ -41,6 +42,7 @@
                 href="{{ $whatsappUrl }}"
                 target="_blank"
                 rel="noopener noreferrer"
+                onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackWhatsApp({ sourcePage: 'product_detail', locale: '{{ $currentLocale }}', productId: {{ $product->id }} });"
                 class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-emerald-600 shadow-xs transition-all focus-ring active:scale-[0.95]"
                 aria-label="{{ $currentLocale === 'en' ? 'Inquire via WhatsApp' : 'Konsultasi via WhatsApp' }}"
             >

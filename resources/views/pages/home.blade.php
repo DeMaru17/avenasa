@@ -1,7 +1,5 @@
 @extends('layouts.public')
-
-@section('title', __('Home'))
-@section('meta_description', $companyProfile?->tagline ?: ($companyProfile?->about ?: 'PT Abhipraya Nawasena Sejahtera'))
+@section('title', app()->getLocale() === 'en' ? 'PT Abhipraya Nawasena Sejahtera - Medical & Laboratory Equipment Distributor' : 'PT Abhipraya Nawasena Sejahtera - Distributor Alat Kesehatan & Laboratorium')
 
 @section('content')
     {{-- Section 1: Hero Banner Carousel --}}

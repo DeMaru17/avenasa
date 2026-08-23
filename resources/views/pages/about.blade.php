@@ -4,10 +4,36 @@
     $currentLocale = app()->getLocale();
 @endphp
 
-@section('title', $currentLocale === 'en' ? 'About Us - PT Abhipraya Nawasena Sejahtera' : 'Tentang Kami - PT Abhipraya Nawasena Sejahtera')
-@section('meta_description', $currentLocale === 'en'
+@section('title', $currentLocale === 'en' ? 'About Us | PT Abhipraya Nawasena Sejahtera' : 'Tentang Kami | PT Abhipraya Nawasena Sejahtera')
+@section('meta_description', !empty($companyProfile?->vision) ? Str::limit(strip_tags($companyProfile->vision), 160) : ($currentLocale === 'en'
     ? 'Learn about PT Abhipraya Nawasena Sejahtera (ANS) - Official distributor of life science, laboratory, medical, and diagnostic equipment in Indonesia.'
-    : 'Tentang PT Abhipraya Nawasena Sejahtera (ANS) - Distributor resmi terkemuka peralatan ilmu hayati (life science), laboratorium, medis, dan diagnostik di Indonesia.')
+    : 'Tentang PT Abhipraya Nawasena Sejahtera (ANS) - Distributor resmi terkemuka peralatan ilmu hayati (life science), laboratorium, medis, dan diagnostik di Indonesia.'))
+
+@section('structured_data')
+@php
+    $breadcrumbSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => $currentLocale === 'en' ? 'Home' : 'Beranda',
+                'item' => url('/' . $currentLocale),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => $currentLocale === 'en' ? 'About Us' : 'Tentang Kami',
+                'item' => url('/' . $currentLocale . '/about'),
+            ],
+        ],
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endsection
 
 @section('content')
     {{-- 1. Hero / Page Header --}}

@@ -81,7 +81,7 @@
                     </li>
                     <li class="flex items-center gap-3">
                         <x-icons.whatsapp class="w-5 h-5 text-teal-400 flex-shrink-0" />
-                        <a href="https://wa.me/{{ $whatsappClean }}" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-teal-400 text-sm transition-colors focus-ring rounded">
+                        <a href="https://wa.me/{{ $whatsappClean }}" target="_blank" rel="noopener noreferrer" onclick="if(window.ANSAnalytics) window.ANSAnalytics.trackWhatsApp({ sourcePage: 'footer', locale: '{{ app()->getLocale() }}' });" class="text-slate-400 hover:text-teal-400 text-sm transition-colors focus-ring rounded">
                             {{ $whatsapp }}
                         </a>
                     </li>
