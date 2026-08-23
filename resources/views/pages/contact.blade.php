@@ -23,9 +23,12 @@
                     <x-contact.map :profile="$companyProfile" />
                 </div>
 
-                {{-- Right Column: Quotation Request Form Shell --}}
+                {{-- Right Column: Quotation Request Form --}}
                 <div class="lg:col-span-7">
-                    <x-contact.form-shell />
+                    <x-contact.form-shell
+                        :requestedProduct="$requestedProduct ?? null"
+                        :defaultSubject="$defaultSubject ?? ''"
+                    />
                 </div>
             </div>
         </div>

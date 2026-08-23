@@ -45,10 +45,13 @@
         <div class="hidden sm:flex sm:items-center sm:justify-between w-full">
             <div>
                 <p class="text-sm text-slate-500 font-medium">
+                    @php
+                        $itemLabel = $itemName ?? (app()->getLocale() === 'en' ? 'results' : 'hasil');
+                    @endphp
                     @if (app()->getLocale() === 'en')
-                        Showing <span class="font-semibold text-slate-700">{{ $paginator->firstItem() }}</span> to <span class="font-semibold text-slate-700">{{ $paginator->lastItem() }}</span> of <span class="font-semibold text-slate-700">{{ $paginator->total() }}</span> results
+                        Showing <span class="font-semibold text-slate-700">{{ $paginator->firstItem() }}–{{ $paginator->lastItem() }}</span> of <span class="font-semibold text-slate-700">{{ $paginator->total() }}</span> {{ $itemLabel }}
                     @else
-                        Menampilkan <span class="font-semibold text-slate-700">{{ $paginator->firstItem() }}</span> sampai <span class="font-semibold text-slate-700">{{ $paginator->lastItem() }}</span> dari <span class="font-semibold text-slate-700">{{ $paginator->total() }}</span> hasil
+                        Menampilkan <span class="font-semibold text-slate-700">{{ $paginator->firstItem() }}–{{ $paginator->lastItem() }}</span> dari <span class="font-semibold text-slate-700">{{ $paginator->total() }}</span> {{ $itemLabel }}
                     @endif
                 </p>
             </div>

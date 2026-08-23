@@ -35,8 +35,14 @@ class PageController extends Controller
         $brands = Brand::active()
             ->withCount(['products' => fn ($query) => $query->where('is_active', true)])
             ->ordered()
-            ->get();
-        $clients = Client::active()->ordered()->get();
+            ->paginate(12, ['*'], 'principal_page')
+            ->withQueryString();
+
+        $clients = Client::active()
+            ->ordered()
+            ->paginate(24, ['*'], 'client_page')
+            ->withQueryString();
+
         $companyProfile = CompanyProfile::first();
 
         return view('pages.partners-clients', [

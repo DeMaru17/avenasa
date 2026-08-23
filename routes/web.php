@@ -24,4 +24,7 @@ Route::prefix('{locale}')
         Route::get('/products/{slug}/brochure', [ProductController::class, 'brochure'])->name('products.brochure');
         Route::get('/partners-clients', [PageController::class, 'partnersClients'])->name('partners-clients');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+        Route::post('/contact', [ContactController::class, 'store'])
+            ->middleware('throttle:5,1')
+            ->name('contact.store');
     });
