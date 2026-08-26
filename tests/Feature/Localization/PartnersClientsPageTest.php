@@ -94,7 +94,7 @@ class PartnersClientsPageTest extends TestCase
         ]);
 
         $idResponse = $this->get('/id/partners-clients');
-        $idResponse->assertSee('Distributor Resmi Terdaftar');
+        $idResponse->assertSee('Mitra Bisnis Global Kami');
         $idResponse->assertSee('Lovibond');
         $idResponse->assertSee('Neogen');
         $idResponse->assertSee('Principal pengujian kualitas air.');
@@ -109,7 +109,7 @@ class PartnersClientsPageTest extends TestCase
         );
 
         $enResponse = $this->get('/en/partners-clients');
-        $enResponse->assertSee('Authorized Global Principals');
+        $enResponse->assertSee('Our Global Business Partners');
         $enResponse->assertSee('Lovibond');
         $enResponse->assertSee('Neogen');
         $enResponse->assertSee('Water quality testing principal.');
@@ -145,8 +145,8 @@ class PartnersClientsPageTest extends TestCase
         $page1Response->assertSee('Brand 01');
         $page1Response->assertSee('Brand 12');
         $page1Response->assertDontSee('Brand 13');
-        $page1Response->assertSee('19 principal resmi');
-        $page1Response->assertSeeText('Menampilkan 1–12 dari 19 principal');
+        $page1Response->assertSee('19 mitra bisnis');
+        $page1Response->assertSeeText('Menampilkan 1–12 dari 19 mitra bisnis');
 
         // Page 2: Should show Brand 13 to Brand 19, but NOT Brand 12 in the grid
         $page2Response = $this->get('/id/partners-clients?principal_page=2');
@@ -155,7 +155,7 @@ class PartnersClientsPageTest extends TestCase
         $page2Response->assertSee('Brand 19');
         $page2Response->assertDontSee('Brand 12');
         $page2Response->assertDontSee('Logo Brand 01');
-        $page2Response->assertSeeText('Menampilkan 13–19 dari 19 principal');
+        $page2Response->assertSeeText('Menampilkan 13–19 dari 19 mitra bisnis');
     }
 
     public function test_client_pagination_limits_to_24_per_page_and_allows_navigation_to_subsequent_pages(): void
@@ -252,9 +252,9 @@ class PartnersClientsPageTest extends TestCase
         }
 
         $response1 = $this->get('/id/partners-clients');
-        $response1->assertSee('5 principal resmi');
+        $response1->assertSee('5 mitra bisnis');
         $response1->assertSee('Menjalin hubungan dengan 10 institusi');
-        $response1->assertSeeText('Menampilkan 1–5 dari 5 principal');
+        $response1->assertSeeText('Menampilkan 1–5 dari 5 mitra bisnis');
         $response1->assertSeeText('Menampilkan 1–10 dari 10 klien');
 
         // Dataset size 2: Add more to verify dynamic responsiveness
@@ -266,9 +266,9 @@ class PartnersClientsPageTest extends TestCase
         }
 
         $response2 = $this->get('/en/partners-clients');
-        $response2->assertSee('32 authorized principals');
+        $response2->assertSee('32 business partners');
         $response2->assertSee('Collaborating with 100 leading institutions');
-        $response2->assertSeeText('Showing 1–12 of 32 principals');
+        $response2->assertSeeText('Showing 1–12 of 32 business partners');
         $response2->assertSeeText('Showing 1–24 of 100 clients');
     }
 
@@ -313,13 +313,13 @@ class PartnersClientsPageTest extends TestCase
 
         $idResponse = $this->get('/id/partners-clients');
         $idResponse->assertSee('Lihat Produk');
-        $idResponse->assertSee('href="http://127.0.0.1:8000/id/products?brand=merck"', false);
-        $idResponse->assertDontSee('href="http://127.0.0.1:8000/id/products?brand=brand-without-products"', false);
+        $idResponse->assertSee('href="'.route('products.index', ['locale' => 'id', 'brand' => 'merck']).'"', false);
+        $idResponse->assertDontSee('href="'.route('products.index', ['locale' => 'id', 'brand' => 'brand-without-products']).'"', false);
 
         $enResponse = $this->get('/en/partners-clients');
         $enResponse->assertSee('View Products');
-        $enResponse->assertSee('href="http://127.0.0.1:8000/en/products?brand=merck"', false);
-        $enResponse->assertDontSee('href="http://127.0.0.1:8000/en/products?brand=brand-without-products"', false);
+        $enResponse->assertSee('href="'.route('products.index', ['locale' => 'en', 'brand' => 'merck']).'"', false);
+        $enResponse->assertDontSee('href="'.route('products.index', ['locale' => 'en', 'brand' => 'brand-without-products']).'"', false);
     }
 
     public function test_partners_clients_page_handles_empty_dataset_gracefully(): void
@@ -328,12 +328,12 @@ class PartnersClientsPageTest extends TestCase
 
         $idResponse = $this->get('/id/partners-clients');
         $idResponse->assertStatus(200);
-        $idResponse->assertSee('Belum ada data principal resmi yang aktif saat ini.');
+        $idResponse->assertSee('Belum ada data mitra bisnis yang aktif saat ini.');
         $idResponse->assertSee('Belum ada data klien yang aktif saat ini.');
 
         $enResponse = $this->get('/en/partners-clients');
         $enResponse->assertStatus(200);
-        $enResponse->assertSee('No active principals available at the moment.');
+        $enResponse->assertSee('No active business partners available at the moment.');
         $enResponse->assertSee('No active clients available at the moment.');
     }
 

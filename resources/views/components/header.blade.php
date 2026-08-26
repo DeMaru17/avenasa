@@ -12,12 +12,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 md:h-18">
             {{-- Brand Logo --}}
-            <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center gap-3 focus-ring rounded-lg py-1" aria-label="{{ __('Home') }} - PT Abhipraya Nawasena Sejahtera">
+            <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center gap-2.5 sm:gap-3 focus-ring rounded-lg py-1" aria-label="{{ __('Home') }} - PT Abhipraya Nawasena Sejahtera">
                 <img src="{{ asset('images/logo-ans.png') }}" alt="ANS Logo" class="h-9 md:h-10 w-auto object-contain" width="40" height="40">
-                <div class="flex flex-col leading-none">
-                    <span class="text-[11px] font-semibold tracking-widest text-teal-700 uppercase" style="letter-spacing: 0.18em">PT Abhipraya Nawasena</span>
-                    <span class="text-[15px] font-semibold text-slate-900 tracking-tight">Sejahtera</span>
-                </div>
+                <span class="text-xs sm:text-sm md:text-[15px] font-bold text-slate-900 tracking-tight whitespace-nowrap">
+                    PT Abhipraya Nawasena Sejahtera
+                </span>
             </a>
 
             {{-- Desktop Navigation --}}

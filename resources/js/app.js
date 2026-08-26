@@ -1,8 +1,10 @@
 import './bootstrap';
 import './analytics';
 import Alpine from 'alpinejs';
+import { smoothCarousel } from './carousel';
 
 window.Alpine = Alpine;
+Alpine.data('smoothCarousel', smoothCarousel);
 Alpine.start();
 
 document.addEventListener('DOMContentLoaded', () => {

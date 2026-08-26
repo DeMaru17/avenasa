@@ -4,10 +4,10 @@
     $currentLocale = app()->getLocale();
 @endphp
 
-@section('title', $currentLocale === 'en' ? 'About Us | PT Abhipraya Nawasena Sejahtera' : 'Tentang Kami | PT Abhipraya Nawasena Sejahtera')
+@section('title', $currentLocale === 'en' ? 'About ANS | PT Abhipraya Nawasena Sejahtera' : 'Tentang ANS | PT Abhipraya Nawasena Sejahtera')
 @section('meta_description', !empty($companyProfile?->vision) ? Str::limit(strip_tags($companyProfile->vision), 160) : ($currentLocale === 'en'
-    ? 'Learn about PT Abhipraya Nawasena Sejahtera (ANS) - Official distributor of life science, laboratory, medical, and diagnostic equipment in Indonesia.'
-    : 'Tentang PT Abhipraya Nawasena Sejahtera (ANS) - Distributor resmi terkemuka peralatan ilmu hayati (life science), laboratorium, medis, dan diagnostik di Indonesia.'))
+    ? 'Learn about PT Abhipraya Nawasena Sejahtera (ANS) - Distributor of life science, laboratory, medical, and diagnostic equipment in Indonesia.'
+    : 'Tentang PT Abhipraya Nawasena Sejahtera (ANS) - Distributor peralatan ilmu hayati (life science), laboratorium, medis, dan diagnostik di Indonesia.'))
 
 @section('structured_data')
 @php
@@ -24,7 +24,7 @@
             [
                 '@type' => 'ListItem',
                 'position' => 2,
-                'name' => $currentLocale === 'en' ? 'About Us' : 'Tentang Kami',
+                'name' => $currentLocale === 'en' ? 'About ANS' : 'Tentang ANS',
                 'item' => url('/' . $currentLocale . '/about'),
             ],
         ],

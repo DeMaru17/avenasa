@@ -9,12 +9,12 @@ class LocalizationRoutingTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_root_url_redirects_permanently_to_default_id_locale(): void
+    public function test_root_url_redirects_permanently_to_default_en_locale(): void
     {
         $response = $this->get('/');
 
         $response->assertStatus(301);
-        $response->assertRedirect('/id');
+        $response->assertRedirect('/en');
     }
 
     public function test_indonesian_home_route_is_accessible_and_sets_id_locale(): void
@@ -74,13 +74,13 @@ class LocalizationRoutingTest extends TestCase
         $idResponse->assertSee('<link rel="canonical" href="'.$idUrl.'">', false);
         $idResponse->assertSee('<link rel="alternate" hreflang="id" href="'.$idUrl.'">', false);
         $idResponse->assertSee('<link rel="alternate" hreflang="en" href="'.$enUrl.'">', false);
-        $idResponse->assertSee('<link rel="alternate" hreflang="x-default" href="'.$idUrl.'">', false);
+        $idResponse->assertSee('<link rel="alternate" hreflang="x-default" href="'.$enUrl.'">', false);
 
         $enResponse = $this->get('/en/about');
         $enResponse->assertStatus(200);
         $enResponse->assertSee('<link rel="canonical" href="'.$enUrl.'">', false);
         $enResponse->assertSee('<link rel="alternate" hreflang="id" href="'.$idUrl.'">', false);
         $enResponse->assertSee('<link rel="alternate" hreflang="en" href="'.$enUrl.'">', false);
-        $enResponse->assertSee('<link rel="alternate" hreflang="x-default" href="'.$idUrl.'">', false);
+        $enResponse->assertSee('<link rel="alternate" hreflang="x-default" href="'.$enUrl.'">', false);
     }
 }

@@ -151,7 +151,7 @@ class LocalizationService
 
             $idUrl = (! empty($product?->slug_id)) ? route('products.show', ['locale' => 'id', 'slug' => $product->slug_id]) : null;
             $enUrl = (! empty($product?->slug_en)) ? route('products.show', ['locale' => 'en', 'slug' => $product->slug_en]) : null;
-            $xDefault = $idUrl ?? $enUrl ?? url('/id');
+            $xDefault = $enUrl ?? $idUrl ?? url('/en');
 
             $hreflangs = [
                 'x-default' => $xDefault,
@@ -173,7 +173,7 @@ class LocalizationService
         return [
             'id' => $idUrl,
             'en' => $enUrl,
-            'x-default' => $idUrl, // Per SPEC-05 Section 12.1, x-default points to default ID version
+            'x-default' => $enUrl, // Default EN version
         ];
     }
 

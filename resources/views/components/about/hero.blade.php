@@ -19,7 +19,7 @@
                 </li>
                 <li>
                     <span class="text-slate-200 font-medium" aria-current="page">
-                        {{ $currentLocale === 'en' ? 'About Us' : 'Tentang Kami' }}
+                        {{ $currentLocale === 'en' ? 'About ANS' : 'Tentang ANS' }}
                     </span>
                 </li>
             </ol>
@@ -27,12 +27,12 @@
 
         {{-- Eyebrow --}}
         <div class="text-teal-400 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3">
-            {{ $currentLocale === 'en' ? 'About Us' : 'Tentang Kami' }}
+            {{ $currentLocale === 'en' ? 'About ANS' : 'Tentang ANS' }}
         </div>
 
         {{-- Page Heading --}}
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-            {{ $currentLocale === 'en' ? 'About PT Abhipraya Nawasena Sejahtera' : 'Tentang PT Abhipraya Nawasena Sejahtera' }}
+            {{ $currentLocale === 'en' ? 'About ANS' : 'Tentang ANS' }}
         </h1>
 
         {{-- Subtitle Narrative --}}

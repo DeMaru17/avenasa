@@ -9,10 +9,10 @@
         {{-- Section Header --}}
         <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
             <div class="text-teal-700 text-xs sm:text-sm font-bold tracking-widest uppercase mb-3">
-                {{ $currentLocale === 'en' ? 'Trusted Clients' : 'Klien Terpercaya' }}
+                {{ $currentLocale === 'en' ? 'Clients' : 'Klien' }}
             </div>
             <h2 id="clients-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-                {{ $currentLocale === 'en' ? 'Trusted by Leading Institutions' : 'Dipercaya oleh Institusi Terkemuka' }}
+                {{ $currentLocale === 'en' ? 'Institutional & Industry Clients' : 'Klien Institusi & Industri' }}
             </h2>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                 @if ($currentLocale === 'en')

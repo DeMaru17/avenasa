@@ -50,7 +50,7 @@
     </section>
 
 @elseif ($bannerCount === 1)
-    {{-- Single Banner: Static Hero (No Carousel Controls) --}}
+    {{-- Single Banner: Static Hero with Gentle Motion (No Carousel Controls) --}}
     @php
         $singleHero = $bannerList->first();
         $isExternal = !empty($singleHero->button_url) && (str_starts_with($singleHero->button_url, 'http://') || str_starts_with($singleHero->button_url, 'https://') || str_starts_with($singleHero->button_url, '//'));
@@ -58,7 +58,7 @@
     @endphp
     <section class="relative w-full overflow-hidden bg-slate-900 min-h-[520px] lg:min-h-[620px] flex items-center" aria-label="{{ __('Hero Banner') }}">
         @if (!empty($singleHero->image_path))
-            <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 z-0 overflow-hidden">
                 <picture>
                     @if (!empty($singleHero->mobile_image_path))
                         <source media="(max-width: 640px)" srcset="{{ asset('storage/' . $singleHero->mobile_image_path) }}">
@@ -66,7 +66,7 @@
                     <img
                         src="{{ asset('storage/' . $singleHero->image_path) }}"
                         alt="{{ $singleHero->title }}"
-                        class="w-full h-full object-cover object-center"
+                        class="w-full h-full object-cover object-center animate-hero-zoom-out transform"
                         loading="eager"
                         fetchpriority="high"
                     >
@@ -122,7 +122,7 @@
     </section>
 
 @else
-    {{-- Multiple Banners: True Single-Slide Interactive Alpine.js Carousel --}}
+    {{-- Multiple Banners: True Single-Slide Interactive Alpine.js Carousel with Slow Zoom-Out --}}
     <section
         x-data="{
             current: 0,
@@ -143,7 +143,7 @@
                     if (!this.isPaused) {
                         this.next();
                     }
-                }, 5500);
+                }, 6000);
             },
             stopAutoplay() {
                 if (this.autoplayTimer) clearInterval(this.autoplayTimer);
@@ -173,6 +173,8 @@
         }"
         @mouseenter="isPaused = true"
         @mouseleave="isPaused = false"
+        @focusin="isPaused = true"
+        @focusout="isPaused = false"
         @touchstart.passive="handleTouchStart($event)"
         @touchend.passive="handleTouchEnd($event)"
         @keydown.left.prevent="prev()"
@@ -191,10 +193,10 @@
             @endphp
             <div
                 x-show="current === {{ $index }}"
-                x-transition:enter="transition-opacity ease-out duration-700"
+                x-transition:enter="transition-opacity duration-1200 ease-in-out"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
-                x-transition:leave="transition-opacity ease-in duration-500"
+                x-transition:leave="transition-opacity duration-1200 ease-in-out"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
                 class="absolute inset-0 w-full h-full flex items-center z-10"
@@ -203,9 +205,9 @@
                 aria-label="{{ __('Slide :current of :total', ['current' => $index + 1, 'total' => $bannerCount]) }}"
                 x-cloak
             >
-                {{-- Background Image --}}
+                {{-- Background Image with Slow Zoom-Out --}}
                 @if (!empty($banner->image_path))
-                    <div class="absolute inset-0 z-0">
+                    <div class="absolute inset-0 z-0 overflow-hidden">
                         <picture>
                             @if (!empty($banner->mobile_image_path))
                                 <source media="(max-width: 640px)" srcset="{{ asset('storage/' . $banner->mobile_image_path) }}">
@@ -213,7 +215,8 @@
                             <img
                                 src="{{ asset('storage/' . $banner->image_path) }}"
                                 alt="{{ $banner->title }}"
-                                class="w-full h-full object-cover object-center"
+                                :class="current === {{ $index }} ? 'animate-hero-zoom-out' : 'scale-110'"
+                                class="w-full h-full object-cover object-center transform"
                                 loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
                                 @if($index === 0) fetchpriority="high" @endif
                             >

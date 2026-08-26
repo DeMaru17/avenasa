@@ -53,11 +53,11 @@ class SeoAndAnalyticsTest extends TestCase
         // About ID & EN
         $aboutId = $this->get('/id/about');
         $aboutId->assertStatus(200);
-        $aboutId->assertSee('<title>Tentang Kami | PT Abhipraya Nawasena Sejahtera</title>', false);
+        $aboutId->assertSee('<title>Tentang ANS | PT Abhipraya Nawasena Sejahtera</title>', false);
 
         $aboutEn = $this->get('/en/about');
         $aboutEn->assertStatus(200);
-        $aboutEn->assertSee('<title>About Us | PT Abhipraya Nawasena Sejahtera</title>', false);
+        $aboutEn->assertSee('<title>About ANS | PT Abhipraya Nawasena Sejahtera</title>', false);
     }
 
     /**
@@ -72,7 +72,7 @@ class SeoAndAnalyticsTest extends TestCase
         $response->assertSee('<link rel="canonical" href="'.$appUrl.'/id/about">', false);
         $response->assertSee('<link rel="alternate" hreflang="id" href="'.$appUrl.'/id/about">', false);
         $response->assertSee('<link rel="alternate" hreflang="en" href="'.$appUrl.'/en/about">', false);
-        $response->assertSee('<link rel="alternate" hreflang="x-default" href="'.$appUrl.'/id/about">', false);
+        $response->assertSee('<link rel="alternate" hreflang="x-default" href="'.$appUrl.'/en/about">', false);
     }
 
     /**
@@ -103,7 +103,7 @@ class SeoAndAnalyticsTest extends TestCase
         $responseId->assertSee('<link rel="canonical" href="'.$appUrl.'/id/products/alat-pcr-real-time">', false);
         $responseId->assertSee('<link rel="alternate" hreflang="id" href="'.$appUrl.'/id/products/alat-pcr-real-time">', false);
         $responseId->assertSee('<link rel="alternate" hreflang="en" href="'.$appUrl.'/en/products/real-time-pcr-system">', false);
-        $responseId->assertSee('<link rel="alternate" hreflang="x-default" href="'.$appUrl.'/id/products/alat-pcr-real-time">', false);
+        $responseId->assertSee('<link rel="alternate" hreflang="x-default" href="'.$appUrl.'/en/products/real-time-pcr-system">', false);
     }
 
     /**

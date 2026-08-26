@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Route;
 // Dynamic XML Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
-// Root URL permanent redirect to default locale (/id) per SPEC-05 Section 4
+// Root URL permanent redirect to default locale (/en)
 Route::get('/', function () {
-    return redirect('/id', 301);
+    return redirect('/en', 301);
 });
 
 // Localized public route group strictly matching /id or /en

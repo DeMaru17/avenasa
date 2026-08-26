@@ -13,23 +13,22 @@
 
 <footer class="bg-slate-900 text-white border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-            {{-- Col 1: Brand & Profile Summary --}}
-            <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
+            {{-- Col 1: Brand & Profile Summary (Widened) --}}
+            <div class="space-y-4 lg:col-span-4">
                 <div class="flex items-center gap-3">
-                    <img src="{{ asset('images/logo-ans.png') }}" alt="ANS" class="h-10 w-auto brightness-0 invert object-contain" width="40" height="40">
-                    <div>
-                        <div class="text-[10px] font-semibold tracking-widest text-teal-400 uppercase" style="letter-spacing: 0.15em">PT Abhipraya Nawasena</div>
-                        <div class="text-[14px] font-semibold text-white tracking-tight">Sejahtera</div>
-                    </div>
+                    <img src="{{ asset('images/logo-ans.png') }}" alt="ANS" class="h-9 md:h-10 w-auto brightness-0 invert object-contain" width="40" height="40">
+                    <span class="text-sm md:text-base font-bold text-white tracking-tight whitespace-nowrap">
+                        PT Abhipraya Nawasena Sejahtera
+                    </span>
                 </div>
-                <p class="text-slate-400 text-sm leading-relaxed font-semibold">
+                <p class="text-slate-400 text-sm leading-relaxed font-semibold max-w-sm">
                     {{ $profile?->tagline_en ?? 'Empowering Science for a Prosperous Future' }}
                 </p>
             </div>
 
-            {{-- Col 2: Quick Links --}}
-            <div>
+            {{-- Col 2: Quick Links (Shifted Right with Gutter) --}}
+            <div class="lg:col-span-2 lg:pl-6">
                 <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 text-teal-400">{{ __('Quick Links') }}</h3>
                 <ul class="space-y-2.5">
                     <li>
@@ -61,7 +60,7 @@
             </div>
 
             {{-- Col 3: Contact Information --}}
-            <div>
+            <div class="lg:col-span-3 lg:pl-2">
                 <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 text-teal-400">{{ __('Contact Information') }}</h3>
                 <ul class="space-y-3">
                     <li class="flex items-start gap-3">
@@ -97,20 +96,12 @@
             </div>
 
             {{-- Col 4: Official Principals & CTA --}}
-            <div>
+            <div class="lg:col-span-3">
                 <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 text-teal-400">{{ __('Official Principals') }}</h3>
                 <div class="space-y-2 mb-6">
-                    @if ($principalsList->isNotEmpty())
-                        @foreach ($principalsList as $principal)
-                            <div class="flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
-                                <span class="text-slate-400 text-sm font-medium">{{ $principal->name }}</span>
-                            </div>
-                        @endforeach
-                    @else
                         <div class="flex items-center gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
-                            <span class="text-slate-400 text-sm font-medium">Merck</span>
+                            <span class="text-slate-400 text-sm font-medium">Fountain Scientific</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
@@ -118,9 +109,16 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
-                            <span class="text-slate-400 text-sm font-medium">ERA Biology</span>
+                            <span class="text-slate-400 text-sm font-medium">Gold Standard Diagnostics</span>
                         </div>
-                    @endif
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
+                            <span class="text-slate-400 text-sm font-medium">Dlab</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
+                            <span class="text-slate-400 text-sm font-medium">Labtex</span>
+                        </div>
                 </div>
 
                 <div class="pt-4 border-t border-slate-800">

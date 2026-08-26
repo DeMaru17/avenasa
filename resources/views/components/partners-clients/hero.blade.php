@@ -19,7 +19,7 @@
                 </li>
                 <li>
                     <span class="text-slate-200 font-medium" aria-current="page">
-                        {{ $currentLocale === 'en' ? 'Partners & Clients' : 'Mitra & Klien' }}
+                        {{ $currentLocale === 'en' ? 'Business Partners & Clients' : 'Mitra Bisnis & Klien' }}
                     </span>
                 </li>
             </ol>
@@ -27,18 +27,18 @@
 
         {{-- Eyebrow --}}
         <div class="text-teal-400 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3">
-            {{ $currentLocale === 'en' ? 'Partners & Clients' : 'Mitra & Klien' }}
+            {{ $currentLocale === 'en' ? 'Business Partners & Clients' : 'Mitra Bisnis & Klien' }}
         </div>
 
         {{-- Page Heading --}}
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-            {{ $currentLocale === 'en' ? 'Official Principals & Trusted Clients' : 'Prinsipal Resmi & Klien Terpercaya' }}
+            {{ $currentLocale === 'en' ? 'Business Partners & Clients' : 'Mitra Bisnis & Klien' }}
         </h1>
 
         {{-- Subtitle Narrative --}}
         <p class="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
             {{ $currentLocale === 'en'
-                ? 'Authorized manufacturing partnerships with world-leading scientific brands and trusted institutions across Indonesia.'
+                ? 'Global manufacturing partnerships with leading scientific brands and trusted institutions across Indonesia.'
                 : 'Jaringan kemitraan manufaktur global terkemuka dan institusi saintifik terpercaya yang bermitra dengan PT Abhipraya Nawasena Sejahtera.' }}
         </p>
     </div>

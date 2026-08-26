@@ -8,7 +8,7 @@
 
 {{-- 1. Primary Meta Tags --}}
 <title>{!! View::hasSection('title') ? trim(View::getSection('title')) : ($currentLocale === 'en' ? 'PT Abhipraya Nawasena Sejahtera - Medical &amp; Laboratory Equipment Distributor' : 'PT Abhipraya Nawasena Sejahtera - Distributor Alat Kesehatan &amp; Laboratorium') !!}</title>
-<meta name="description" content="{!! View::hasSection('meta_description') ? e(trim(strip_tags(View::getSection('meta_description')))) : ($companyProfile ? e(app()->getLocale() === 'en' ? ($companyProfile->tagline_en ?: $companyProfile->tagline_id) : $companyProfile->tagline_id) : ($currentLocale === 'en' ? 'PT Abhipraya Nawasena Sejahtera (ANS) is an authorized distributor of world-class laboratory, medical, and diagnostic equipment in Indonesia.' : 'PT Abhipraya Nawasena Sejahtera (ANS) adalah distributor resmi peralatan laboratorium, medis, dan diagnostik terkemuka di Indonesia.')) !!}">
+<meta name="description" content="{!! View::hasSection('meta_description') ? e(trim(strip_tags(View::getSection('meta_description')))) : ($companyProfile ? e(app()->getLocale() === 'en' ? ($companyProfile->tagline_en ?: $companyProfile->tagline_id) : $companyProfile->tagline_id) : ($currentLocale === 'en' ? 'PT Abhipraya Nawasena Sejahtera (ANS) is a leading distributor of laboratory, medical, and diagnostic equipment in Indonesia.' : 'PT Abhipraya Nawasena Sejahtera (ANS) adalah distributor terkemuka peralatan laboratorium, medis, dan diagnostik di Indonesia.')) !!}">
 <meta name="robots" content="{{ View::hasSection('robots') ? trim(View::getSection('robots')) : 'index, follow' }}">
 
 {{-- 2. Canonical & Reciprocal Hreflang Tags --}}
@@ -41,7 +41,7 @@
 <meta property="og:site_name" content="PT Abhipraya Nawasena Sejahtera">
 <meta property="og:type" content="@yield('og_type', 'website')">
 <meta property="og:title" content="@yield('og_title', View::hasSection('title') ? View::getSection('title') : 'PT Abhipraya Nawasena Sejahtera')">
-<meta property="og:description" content="@yield('og_description', View::hasSection('meta_description') ? View::getSection('meta_description') : ($currentLocale === 'en' ? 'PT Abhipraya Nawasena Sejahtera (ANS) is an authorized distributor of world-class laboratory, medical, and diagnostic equipment in Indonesia.' : 'PT Abhipraya Nawasena Sejahtera (ANS) adalah distributor resmi peralatan laboratorium, medis, dan diagnostik terkemuka di Indonesia.'))">
+<meta property="og:description" content="@yield('og_description', View::hasSection('meta_description') ? View::getSection('meta_description') : ($currentLocale === 'en' ? 'PT Abhipraya Nawasena Sejahtera (ANS) is a leading distributor of laboratory, medical, and diagnostic equipment in Indonesia.' : 'PT Abhipraya Nawasena Sejahtera (ANS) adalah distributor terkemuka peralatan laboratorium, medis, dan diagnostik di Indonesia.'))">
 <meta property="og:url" content="{{ $canonicalUrl }}">
 <meta property="og:locale" content="{{ $currentLocale === 'id' ? 'id_ID' : 'en_US' }}">
 <meta property="og:locale:alternate" content="{{ $currentLocale === 'id' ? 'en_US' : 'id_ID' }}">

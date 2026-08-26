@@ -9,8 +9,8 @@
         </h2>
         <p class="text-slate-600 text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
             {{ $currentLocale === 'en'
-                ? 'Discover high-precision laboratory instruments, reagents, and diagnostic solutions from world-leading official principals.'
-                : 'Temukan instrumen laboratorium presisi tinggi, reagen, dan solusi diagnostik dari prinsipal resmi terkemuka dunia.' }}
+                ? 'Discover high-precision laboratory instruments, reagents, and diagnostic solutions from leading global manufacturers.'
+                : 'Temukan instrumen laboratorium presisi tinggi, reagen, dan solusi diagnostik dari manufaktur terkemuka dunia.' }}
         </p>
         <div>
             <a

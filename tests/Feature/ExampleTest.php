@@ -17,9 +17,9 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(301);
-        $response->assertRedirect('/id');
+        $response->assertRedirect('/en');
 
-        $followed = $this->get('/id');
+        $followed = $this->get('/en');
         $followed->assertStatus(200);
     }
 }

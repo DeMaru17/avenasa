@@ -216,9 +216,8 @@ class HomePageSectionsTest extends TestCase
         // Product 13 and 14 should NOT be in the home top 12
         $response->assertDontSee('Produk Batch 13');
         $response->assertDontSee('Produk Batch 14');
-        // Pagination track and buttons should be rendered
+        // Continuous carousel stream should be rendered
         $response->assertSee('aria-label="Product Carousel"', false);
-        $response->assertSee('aria-label="Next Page"', false);
     }
 
     public function test_homepage_takes_up_to_12_brands_and_renders_both_logo_and_name(): void

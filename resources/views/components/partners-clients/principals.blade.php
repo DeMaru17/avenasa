@@ -9,16 +9,16 @@
         {{-- Section Header --}}
         <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
             <div class="text-teal-700 text-xs sm:text-sm font-bold tracking-widest uppercase mb-3">
-                {{ $currentLocale === 'en' ? 'Official Principals' : 'Prinsipal Resmi' }}
+                {{ $currentLocale === 'en' ? 'Business Partners' : 'Mitra Bisnis' }}
             </div>
             <h2 id="principals-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-3">
-                {{ $currentLocale === 'en' ? 'Authorized Global Principals' : 'Distributor Resmi Terdaftar' }}
+                {{ $currentLocale === 'en' ? 'Our Global Business Partners' : 'Mitra Bisnis Global Kami' }}
             </h2>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
                 @if ($currentLocale === 'en')
-                    {{ $brands->total() }} authorized principals across life sciences, laboratory instruments, and diagnostic fields.
+                    {{ $brands->total() }} business partners across life sciences, laboratory instruments, and diagnostic fields.
                 @else
-                    {{ $brands->total() }} principal resmi dari berbagai bidang life science, laboratory, dan diagnostics.
+                    {{ $brands->total() }} mitra bisnis dari berbagai bidang life sciences, instrumen laboratorium, dan diagnostik.
                 @endif
             </p>
         </div>
@@ -77,13 +77,13 @@
             {{-- Pagination & Result Indicator --}}
             <div class="mt-10 lg:mt-12 pt-6 border-t border-slate-100">
                 @if ($brands->hasPages())
-                    {{ $brands->fragment('principals-section')->links('vendor.pagination.tailwind', ['itemName' => $currentLocale === 'en' ? 'principals' : 'principal']) }}
+                    {{ $brands->fragment('principals-section')->links('vendor.pagination.tailwind', ['itemName' => $currentLocale === 'en' ? 'business partners' : 'mitra bisnis']) }}
                 @else
                     <div class="text-center sm:text-left text-sm text-slate-500 font-medium">
                         @if ($currentLocale === 'en')
-                            Showing <span class="font-semibold text-slate-700">{{ $brands->firstItem() }}–{{ $brands->lastItem() }}</span> of <span class="font-semibold text-slate-700">{{ $brands->total() }}</span> principals
+                            Showing <span class="font-semibold text-slate-700">{{ $brands->firstItem() }}–{{ $brands->lastItem() }}</span> of <span class="font-semibold text-slate-700">{{ $brands->total() }}</span> business partners
                         @else
-                            Menampilkan <span class="font-semibold text-slate-700">{{ $brands->firstItem() }}–{{ $brands->lastItem() }}</span> dari <span class="font-semibold text-slate-700">{{ $brands->total() }}</span> principal
+                            Menampilkan <span class="font-semibold text-slate-700">{{ $brands->firstItem() }}–{{ $brands->lastItem() }}</span> dari <span class="font-semibold text-slate-700">{{ $brands->total() }}</span> mitra bisnis
                         @endif
                     </div>
                 @endif
@@ -92,7 +92,7 @@
             {{-- Graceful Empty State --}}
             <div class="text-center py-12 px-4 rounded-2xl bg-slate-50 border border-slate-200/80 max-w-lg mx-auto">
                 <p class="text-slate-500 text-sm font-medium">
-                    {{ $currentLocale === 'en' ? 'No active principals available at the moment.' : 'Belum ada data principal resmi yang aktif saat ini.' }}
+                    {{ $currentLocale === 'en' ? 'No active business partners available at the moment.' : 'Belum ada data mitra bisnis yang aktif saat ini.' }}
                 </p>
             </div>
         @endif

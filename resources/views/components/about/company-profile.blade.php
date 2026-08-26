@@ -43,16 +43,13 @@
                         >
                     </div>
 
-                    {{-- Company Name --}}
-                    <h3 class="text-lg sm:text-xl font-bold tracking-wider text-slate-900 uppercase">
-                        PT Abhipraya Nawasena
+                    {{-- Company Name on Single Straight Line --}}
+                    <h3 class="text-base sm:text-lg lg:text-xl font-bold tracking-wider text-slate-900 uppercase whitespace-nowrap">
+                        PT Abhipraya Nawasena Sejahtera
                     </h3>
-                    <p class="text-sm font-semibold tracking-widest text-teal-700 uppercase mt-0.5">
-                        Sejahtera
-                    </p>
 
                     {{-- Supporting Focus Areas --}}
-                    <div class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-widest text-teal-700">
+                    <div class="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-widest text-teal-700">
                         <span>Life Science</span>
                         <span class="text-slate-300" aria-hidden="true">•</span>
                         <span>Laboratory Solutions</span>

@@ -48,24 +48,22 @@ class AboutPageTest extends TestCase
         $this->createCompanyProfile();
 
         $idResponse = $this->get('/id/about');
-        $idResponse->assertSee('Tentang PT Abhipraya Nawasena Sejahtera');
+        $idResponse->assertSee('Tentang ANS');
         $idResponse->assertSee('Empowering Science for a Prosperous Future');
         $idResponse->assertSee('PT Abhipraya Nawasena Sejahtera (ANS) adalah perusahaan distributor alat laboratorium.');
         $idResponse->assertSee('logo-ans.png');
-        $idResponse->assertSee('PT Abhipraya Nawasena');
-        $idResponse->assertSee('Sejahtera');
+        $idResponse->assertSee('PT Abhipraya Nawasena Sejahtera');
         $idResponse->assertSee('Life Science');
         $idResponse->assertSee('Laboratory Solutions');
         $idResponse->assertSee('Diagnostics');
         $idResponse->assertDontSee('mensana-tower.png');
 
         $enResponse = $this->get('/en/about');
-        $enResponse->assertSee('About PT Abhipraya Nawasena Sejahtera');
+        $enResponse->assertSee('About ANS');
         $enResponse->assertSee('Empowering Science for a Prosperous Future');
         $enResponse->assertSee('PT Abhipraya Nawasena Sejahtera (ANS) is a laboratory equipment distributor.');
         $enResponse->assertSee('logo-ans.png');
-        $enResponse->assertSee('PT Abhipraya Nawasena');
-        $enResponse->assertSee('Sejahtera');
+        $enResponse->assertSee('PT Abhipraya Nawasena Sejahtera');
         $enResponse->assertSee('Life Science');
         $enResponse->assertSee('Laboratory Solutions');
         $enResponse->assertSee('Diagnostics');

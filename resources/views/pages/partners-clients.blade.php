@@ -4,10 +4,10 @@
     $currentLocale = app()->getLocale();
 @endphp
 
-@section('title', $currentLocale === 'en' ? 'Principals & Clients | PT Abhipraya Nawasena Sejahtera' : 'Mitra Prinsipal & Klien | PT Abhipraya Nawasena Sejahtera')
+@section('title', $currentLocale === 'en' ? 'Business Partners & Clients | PT Abhipraya Nawasena Sejahtera' : 'Mitra Bisnis & Klien | PT Abhipraya Nawasena Sejahtera')
 @section('meta_description', $currentLocale === 'en'
-    ? 'Official manufacturing principals and trusted institutional client network of PT Abhipraya Nawasena Sejahtera (ANS) in Indonesia.'
-    : 'Jaringan mitra prinsipal manufaktur resmi dan daftar klien institusional terpercaya PT Abhipraya Nawasena Sejahtera (ANS) di Indonesia.')
+    ? 'Manufacturing business partners and trusted institutional client network of PT Abhipraya Nawasena Sejahtera (ANS) in Indonesia.'
+    : 'Jaringan mitra bisnis manufaktur dan daftar klien institusional terpercaya PT Abhipraya Nawasena Sejahtera (ANS) di Indonesia.')
 
 @section('structured_data')
 @php
@@ -24,7 +24,7 @@
             [
                 '@type' => 'ListItem',
                 'position' => 2,
-                'name' => $currentLocale === 'en' ? 'Principals & Clients' : 'Mitra & Klien',
+                'name' => $currentLocale === 'en' ? 'Business Partners & Clients' : 'Mitra Bisnis & Klien',
                 'item' => url('/' . $currentLocale . '/partners-clients'),
             ],
         ],

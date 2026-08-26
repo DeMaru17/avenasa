@@ -22,3 +22,41 @@
 [x-cloak] {
     display: none !important;
 }
+
+/* Hero Banner Slow Zoom-Out Animation (Telaga Sakti style) */
+@keyframes heroSlowZoomOut {
+    0% {
+        transform: scale(1.10);
+    }
+    100% {
+        transform: scale(1.00);
+    }
+}
+
+.animate-hero-zoom-out {
+    animation: heroSlowZoomOut 6s ease-out forwards;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-hero-zoom-out {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+/* Interactive Carousel Utilities */
+.carousel-container {
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.cursor-grab {
+    cursor: grab;
+}
+
+.cursor-grabbing,
+.cursor-grab:active {
+    cursor: grabbing !important;
+}
