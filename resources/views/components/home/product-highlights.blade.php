@@ -19,6 +19,37 @@
 @if ($productList->isNotEmpty())
     <section class="py-16 lg:py-24 bg-slate-50 border-b border-slate-200 overflow-hidden" aria-labelledby="product-highlights-heading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {{-- Section Header with Controls --}}
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <div class="text-teal-700 text-xs sm:text-sm font-bold tracking-widest uppercase mb-3">
+                        {{ $currentLocale === 'en' ? 'Product Portfolio' : 'Portofolio Produk' }}
+                    </div>
+                    <h2 id="product-highlights-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+                        {{ $currentLocale === 'en' ? 'Featured Scientific Products' : 'Produk Pilihan Laboratorium' }}
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+                        {{ $currentLocale === 'en'
+                            ? 'High-precision instruments, reagents, and diagnostic solutions from leading global manufacturers.'
+                            : 'Instrumen presisi tinggi, reagen, dan solusi diagnostik dari manufaktur terkemuka dunia.' }}
+                    </p>
+                </div>
+
+                <div class="self-start md:self-auto">
+                    {{-- Link to Full Catalog --}}
+                    <a
+                        href="{{ route('products.index') }}"
+                        class="inline-flex items-center gap-2 border border-teal-700 text-teal-700 hover:bg-teal-700 hover:text-white font-semibold px-4 py-2.5 rounded-lg transition-all focus-ring text-sm whitespace-nowrap active:scale-[0.98]"
+                    >
+                        <span>{{ $currentLocale === 'en' ? 'View Catalog' : 'Lihat Katalog' }}</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            {{-- Interactive Infinite Carousel Track --}}
             <div
                 x-data="smoothCarousel({ speed: 0.55 })"
                 @mouseenter="handleMouseEnter()"
@@ -37,37 +68,6 @@
                 aria-roledescription="carousel"
                 aria-label="{{ __('Product Carousel') }}"
             >
-                {{-- Section Header with Controls --}}
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-                    <div>
-                        <div class="text-teal-700 text-xs sm:text-sm font-bold tracking-widest uppercase mb-3">
-                            {{ $currentLocale === 'en' ? 'Product Portfolio' : 'Portofolio Produk' }}
-                        </div>
-                        <h2 id="product-highlights-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
-                            {{ $currentLocale === 'en' ? 'Featured Scientific Products' : 'Produk Pilihan Laboratorium' }}
-                        </h2>
-                        <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
-                            {{ $currentLocale === 'en'
-                                ? 'High-precision instruments, reagents, and diagnostic solutions from leading global manufacturers.'
-                                : 'Instrumen presisi tinggi, reagen, dan solusi diagnostik dari manufaktur terkemuka dunia.' }}
-                        </p>
-                    </div>
-
-                    <div class="self-start md:self-auto">
-                        {{-- Link to Full Catalog --}}
-                        <a
-                            href="{{ route('products.index') }}"
-                            class="inline-flex items-center gap-2 border border-teal-700 text-teal-700 hover:bg-teal-700 hover:text-white font-semibold px-4 py-2.5 rounded-lg transition-all focus-ring text-sm whitespace-nowrap active:scale-[0.98]"
-                        >
-                            <span>{{ $currentLocale === 'en' ? 'View Catalog' : 'Lihat Katalog' }}</span>
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                {{-- Interactive Infinite Carousel Track --}}
                 <div class="overflow-hidden -mx-3 px-3 py-1">
                     <div
                         x-ref="track"

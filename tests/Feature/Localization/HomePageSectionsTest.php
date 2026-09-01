@@ -80,6 +80,7 @@ class HomePageSectionsTest extends TestCase
             'summary_en' => 'Portable multi-parameter photometer for water testing.',
             'primary_image_path' => 'products/md200.jpg',
             'sort_order' => 1,
+            'is_featured' => true,
             'is_active' => true,
         ]);
 
@@ -203,6 +204,7 @@ class HomePageSectionsTest extends TestCase
                 'summary_en' => "Product summary {$i}",
                 'primary_image_path' => "products/batch_{$i}.jpg",
                 'sort_order' => $i,
+                'is_featured' => true,
                 'is_active' => true,
             ]);
         }

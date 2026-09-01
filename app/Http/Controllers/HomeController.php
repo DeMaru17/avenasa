@@ -19,7 +19,7 @@ class HomeController extends Controller
         $heroBanners = HeroBanner::active()->ordered()->get();
         $hero = $heroBanners->first();
         $companyProfile = CompanyProfile::first();
-        $featuredProducts = Product::with(['category', 'brand'])->active()->ordered()->take(12)->get();
+        $featuredProducts = Product::with(['category', 'brand'])->active()->featured()->ordered()->take(12)->get();
         $brands = Brand::active()->ordered()->take(12)->get();
         $clients = Client::active()->ordered()->take(12)->get();
 

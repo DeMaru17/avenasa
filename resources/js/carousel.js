@@ -83,17 +83,12 @@ export function smoothCarousel(config = {}) {
 
             this.isDragging = true;
             this.hasDragged = false;
+            this.preventClick = false;
             this.dragDirectionLocked = null;
             this.pointerId = e.pointerId;
             this.startX = e.clientX;
             this.startY = e.clientY;
             this.startOffset = this.offset;
-
-            if (e.currentTarget?.setPointerCapture && e.pointerId !== undefined) {
-                try {
-                    e.currentTarget.setPointerCapture(e.pointerId);
-                } catch (_) {}
-            }
         },
 
         handlePointerMove(e) {
@@ -120,8 +115,17 @@ export function smoothCarousel(config = {}) {
             }
 
             if (Math.abs(deltaX) > 6) {
-                this.hasDragged = true;
-                this.preventClick = true;
+                if (!this.hasDragged) {
+                    this.hasDragged = true;
+                    this.preventClick = true;
+
+                    // Only capture pointer once actual dragging threshold is reached
+                    if (e.currentTarget?.setPointerCapture && this.pointerId !== null && this.pointerId !== undefined) {
+                        try {
+                            e.currentTarget.setPointerCapture(this.pointerId);
+                        } catch (_) {}
+                    }
+                }
             }
 
             if (this.hasDragged) {
@@ -140,25 +144,31 @@ export function smoothCarousel(config = {}) {
             if (!this.isDragging) return;
             this.isDragging = false;
 
-            if (e.currentTarget?.releasePointerCapture && this.pointerId !== undefined) {
+            if (e.currentTarget?.releasePointerCapture && this.pointerId !== null && this.pointerId !== undefined) {
                 try {
                     e.currentTarget.releasePointerCapture(this.pointerId);
                 } catch (_) {}
             }
+            this.pointerId = null;
 
             if (this.hasDragged) {
+                if (this.clickTimer) clearTimeout(this.clickTimer);
                 this.clickTimer = setTimeout(() => {
                     this.preventClick = false;
-                }, 100);
+                    this.hasDragged = false;
+                }, 150);
             } else {
                 this.preventClick = false;
+                this.hasDragged = false;
             }
         },
 
         handlePointerCancel(e) {
             if (!this.isDragging) return;
             this.isDragging = false;
+            this.hasDragged = false;
             this.preventClick = false;
+            this.pointerId = null;
         },
 
         handleMouseEnter() {
@@ -178,7 +188,7 @@ export function smoothCarousel(config = {}) {
         },
 
         handleClickCapture(e) {
-            if (this.preventClick) {
+            if (this.preventClick || this.hasDragged) {
                 e.preventDefault();
                 e.stopPropagation();
             }
