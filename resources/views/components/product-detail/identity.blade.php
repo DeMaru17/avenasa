@@ -48,6 +48,21 @@
                 >
                     {{ $product->brand->name }}
                 </a>
+
+                @if (!empty($product->brand->website_url))
+                    <a
+                        href="{{ $product->brand->website_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-teal-700 bg-slate-50 hover:bg-teal-50/50 border border-slate-200/90 px-2.5 py-1 rounded-lg transition-colors focus-ring group/ext"
+                        title="{{ $currentLocale === 'en' ? 'Visit ' . $product->brand->name . ' official website' : 'Kunjungi situs resmi ' . $product->brand->name }}"
+                    >
+                        <span>{{ $currentLocale === 'en' ? 'Official Site' : 'Situs Resmi' }}</span>
+                        <svg class="w-3 h-3 text-slate-400 group-hover/ext:text-teal-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                        </svg>
+                    </a>
+                @endif
             @endif
         </div>
 

@@ -56,18 +56,40 @@
                             </p>
                         @endif
 
-                        {{-- View Products CTA (when brand has active products) --}}
-                        @if (($brand->products_count ?? 0) > 0)
-                            <div class="mt-auto pt-4 border-t border-slate-100">
-                                <a
-                                    href="{{ route('products.index', ['brand' => $brand->slug]) }}"
-                                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-700 hover:text-teal-800 transition-colors focus-ring rounded group/link"
-                                >
-                                    <span>{{ $currentLocale === 'en' ? 'View Products' : 'Lihat Produk' }}</span>
-                                    <svg class="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                    </svg>
-                                </a>
+                        {{-- Actions Footer (Dual Action: Internal Catalog & Official Website) --}}
+                        @php
+                            $hasProducts = ($brand->products_count ?? 0) > 0;
+                            $hasWebsite = !empty($brand->website_url);
+                        @endphp
+
+                        @if ($hasProducts || $hasWebsite)
+                            <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                                @if ($hasProducts)
+                                    <a
+                                        href="{{ route('products.index', ['brand' => $brand->slug]) }}"
+                                        class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-700 hover:text-teal-800 transition-colors focus-ring rounded group/link"
+                                    >
+                                        <span>{{ $currentLocale === 'en' ? 'View Products' : 'Lihat Produk' }}</span>
+                                        <svg class="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                    </a>
+                                @endif
+
+                                @if ($hasWebsite)
+                                    <a
+                                        href="{{ $brand->website_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-teal-700 hover:underline transition-colors focus-ring rounded group/ext {{ !$hasProducts ? 'text-sm font-semibold text-teal-700 hover:text-teal-800' : '' }}"
+                                        title="{{ $currentLocale === 'en' ? 'Visit ' . $brand->name . ' official website' : 'Kunjungi website resmi ' . $brand->name }}"
+                                    >
+                                        <span>{{ !$hasProducts ? ($currentLocale === 'en' ? 'Visit Official Website' : 'Kunjungi Website Resmi') : ($currentLocale === 'en' ? 'Official Site' : 'Website Resmi') }}</span>
+                                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover/ext:text-teal-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                        </svg>
+                                    </a>
+                                @endif
                             </div>
                         @endif
                     </div>

@@ -32,6 +32,9 @@
             '@type' => 'Brand',
             'name' => $product->brand->name,
         ];
+        if (!empty($product->brand->website_url)) {
+            $productSchema['brand']['url'] = $product->brand->website_url;
+        }
     }
     if ($product->category) {
         $productSchema['category'] = $product->category->name;
