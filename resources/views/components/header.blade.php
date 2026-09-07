@@ -3,6 +3,7 @@
         ['route' => 'home', 'label' => __('Home'), 'active' => request()->routeIs('home')],
         ['route' => 'about', 'label' => __('About Us'), 'active' => request()->routeIs('about')],
         ['route' => 'products.index', 'label' => __('Products'), 'active' => request()->routeIs('products.*')],
+        ['route' => 'articles.index', 'label' => __('Articles'), 'active' => request()->routeIs('articles.*')],
         ['route' => 'partners-clients', 'label' => __('Partners & Clients'), 'active' => request()->routeIs('partners-clients')],
         ['route' => 'contact', 'label' => __('Contact'), 'active' => request()->routeIs('contact')],
     ];

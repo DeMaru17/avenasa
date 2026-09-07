@@ -47,6 +47,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('articles.index') }}" class="text-slate-400 hover:text-teal-400 text-sm transition-colors focus-ring rounded">
+                            {{ __('Articles') }}
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('partners-clients') }}" class="text-slate-400 hover:text-teal-400 text-sm transition-colors focus-ring rounded">
                             {{ __('Partners & Clients') }}
                         </a>

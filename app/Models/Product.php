@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
@@ -175,6 +176,16 @@ class Product extends Model
     public function quotations(): HasMany
     {
         return $this->hasMany(Quotation::class, 'product_id');
+    }
+
+    /**
+     * Get the articles associated with the product.
+     */
+    public function articles(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class, 'article_product')
+            ->withPivot('sort_order')
+            ->withTimestamps();
     }
 
     /**

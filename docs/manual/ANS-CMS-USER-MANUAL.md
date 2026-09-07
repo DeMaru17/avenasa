@@ -17,9 +17,10 @@
 9. [Manajemen Nilai Inti (Core Values)](#9-manajemen-nilai-inti-core-values)
 10. [Manajemen Tim Pimpinan (Management)](#10-manajemen-tim-pimpinan-management)
 11. [Manajemen Klien & Mitra (Clients)](#11-manajemen-klien--mitra-clients)
-12. [Manajemen Permintaan Penawaran (Quotations / Inquiries)](#12-manajemen-permintaan-penawaran-quotations--inquiries)
-13. [Manajemen Pengguna Administrator (Users)](#13-manajemen-pengguna-administrator-users)
-14. [Panduan Pemeliharaan & Troubleshooting Pengguna](#14-panduan-pemeliharaan--troubleshooting-pengguna)
+12. [Manajemen Artikel & Berita Perusahaan (Articles)](#12-manajemen-artikel--berita-perusahaan-articles)
+13. [Manajemen Permintaan Penawaran (Quotations / Inquiries)](#13-manajemen-permintaan-penawaran-quotations--inquiries)
+14. [Manajemen Pengguna Administrator (Users)](#14-manajemen-pengguna-administrator-users)
+15. [Panduan Pemeliharaan & Troubleshooting Pengguna](#15-panduan-pemeliharaan--troubleshooting-pengguna)
 
 ---
 
@@ -275,13 +276,58 @@ Modul ini menampilkan institusi rumah sakit, laboratorium rujukan, universitas, 
 
 ---
 
-## 12. Manajemen Permintaan Penawaran (Quotations / Inquiries)
+## 12. Manajemen Artikel & Berita Perusahaan (Articles)
+
+Modul **Articles** digunakan untuk mempublikasikan berbagai jenis konten editorial korporat dan edukasi ilmiah dwibahasa (Bahasa Indonesia dan English), meliputi Berita (*News*), Agenda Kegiatan (*Event*), Pembaruan Produk (*Product Update*), dan Pengumuman Perusahaan (*Company Update*).
+
+[SCREENSHOT: Halaman Articles — Tabel Daftar Artikel & Badges Tipe]
+
+### 12.1 Karakteristik Utama Modul Artikel:
+1. **Pembuatan Slug Otomatis:** Admin **tidak perlu mengisi slug**. Sistem secara otomatis membuat URL slug dari judul masing-masing bahasa (`title_id` menghasilkan `slug_id`, `title_en` menghasilkan `slug_en`). Slug bersifat stabil demi menjaga tautan dan SEO.
+2. **Pemisahan Foto Sampul vs Gambar Inline:**
+   - **Foto Sampul (Cover Image):** Berkas gambar utama yang muncul di kartu artikel katalog, kartu seksi beranda, dan banner atas halaman detail artikel. Disimpan di folder `articles/covers/`.
+   - **Gambar Inline RichEditor:** Gambar yang disisipkan di dalam badan teks artikel menggunakan editor. Anda dapat menyisipkan banyak gambar di berbagai posisi (di antara paragraf, heading, atau list). Disimpan di folder `articles/editor/`.
+3. **Produk Terkait (Related Products):** Artikel dapat dihubungkan dengan produk katalog ANS yang ada. Produk terkait akan muncul di akhir artikel publik sebagai kartu produk interaktif. Produk dipilih dari database katalog, bukan diketik manual.
+4. **Kontrol Publikasi Aman:** Artikel baru tidak langsung dipublikasikan secara otomatis jika kolom **Waktu Publikasi (Published At)** dibiarkan kosong (berstatus Draft). Artikel hanya akan tampil di publik jika status aktif menyala dan waktu publikasi telah tiba.
+
+### 12.2 Langkah-Langkah Membuat Artikel Baru:
+1. Masuk ke panel admin CMS (`/admin`).
+2. Pada bilah menu samping, buka grup **Company Content** → klik **Articles**.
+3. Klik tombol **New article** di sudut kanan atas.
+4. **Seksi 1 — Informasi Utama (Basic Information):**
+   - Masukkan **Judul Artikel (ID)** dan **Article Title (EN)**.
+   - Masukkan **Ringkasan Singkat (ID & EN)** (cuplikan 1-2 kalimat untuk kartu artikel dan meta deskripsi Google).
+   - Pilih **Tipe Artikel** (*News*, *Event*, *Product Update*, atau *Company Update*).
+   - Unggah **Foto Sampul (Cover Image)** (format JPG, PNG, atau WebP, maksimal 5 MB).
+5. **Seksi 2 — Konten Artikel Dwibahasa (Rich Content):**
+   - Tulis konten pada editor **Konten Artikel (ID)** dan **Article Content (EN)**.
+   - Untuk menyisipkan gambar di tengah teks: tempatkan kursor pada posisi yang diinginkan di dalam editor, klik ikon lampiran berkas (paperclip) pada toolbar editor, lalu pilih gambar Anda. Anda dapat mengatur posisi gambar di antara heading dan paragraf sesuai kebutuhan narasi.
+6. **Seksi 3 — Produk Terkait (Related Products):**
+   - Pada kolom pencarian produk, cari dan pilih produk katalog yang relevan dengan topik artikel ini.
+7. **Seksi 4 — Pengaturan Publikasi (Publishing Settings):**
+   - Tentukan **Waktu Publikasi (Published At)**. Jika ingin langsung terbit, pilih tanggal dan jam saat ini. Jika ingin menyimpan sebagai draf terlebih dahulu, kosongkan field ini.
+   - Pastikan toggle **Status Aktif** menyala.
+   - Aktifkan toggle **Artikel Unggulan (Featured)** jika ingin menandai artikel sebagai konten prioritas.
+8. Klik tombol **Create** (atau **Create & create another**).
+
+### 12.3 Mengatur Urutan Produk Terkait (Drag-and-Drop Ordering):
+1. Buka artikel yang ingin diatur pada menu **Articles** → klik **Edit**.
+2. Gulir ke bagian paling bawah halaman Edit, di bawah formulir utama terdapat tabel visual **Produk Terkait (Related Products)**.
+3. Pada tabel tersebut, Anda dapat:
+   - Mengubah urutan prioritas produk dengan **menarik (drag) ikon titik enam / handle urutan** ke atas atau ke bawah. Urutan ini hanya berlaku untuk artikel ini dan tidak akan mengubah urutan produk di katalog utama.
+   - Menghubungkan produk baru dengan tombol **Hubungkan Produk** (*Attach*).
+   - Melepaskan produk dari artikel dengan tombol **Lepas** (*Detach*). Produk yang dilepas tetap ada di katalog utama ANS.
+4. Simpan perubahan artikel.
+
+---
+
+## 13. Manajemen Permintaan Penawaran (Quotations / Inquiries)
 
 Modul ini merupakan pusat penerimaan prospek bisnis dari formulir penawaran harga di website publik.
 
 [SCREENSHOT: Halaman Quotation — Tabel Data Inquiries Masuk & Status Badges]
 
-### 12.1 Alur Kerja Permintaan Penawaran (Workflow)
+### 13.1 Alur Kerja Permintaan Penawaran (Workflow)
 ```
 Pengunjung Website (Form Kontak / Produk)
    │
@@ -297,7 +343,7 @@ Kirim Email Notifikasi       Kirim Email Konfirmasi       Kirim Event Konversi
 ke Admin ANS (Reply-To Prospek)   ke Calon Klien             ke Google Analytics 4
 ```
 
-### 12.2 Status Penanganan Prospek
+### 13.2 Status Penanganan Prospek
 Administrator dapat memperbarui status penanganan prospek pada setiap tiket quotation:
 
 | Status | Warna Badge | Keterangan & Tindakan Admin |
@@ -309,28 +355,28 @@ Administrator dapat memperbarui status penanganan prospek pada setiap tiket quot
 
 [SCREENSHOT: Halaman Quotation — Detail View & Kolom Catatan Admin Internal]
 
-### 12.3 Kolom Catatan Internal Admin (Admin Notes)
+### 13.3 Kolom Catatan Internal Admin (Admin Notes)
 Pada halaman edit quotation, admin dapat mengisi **Catatan Internal Admin** (misal: *"Sudah dihubungi via WA tgl 24/08, prospek meminta diskon volume untuk 5 unit PCR"*). Catatan ini bersifat internal dan **tidak pernah terlihat oleh pengunjung website**.
 
-### 12.4 Integritas & Keamanan Arsip
+### 13.4 Integritas & Keamanan Arsip
 * Data quotation **tidak memiliki tombol hapus (*non-deletable*)** untuk memastikan rekam jejak audit dan riwayat prospek perusahaan tersimpan utuh dan tidak sengaja terhapus.
 
 ---
 
-## 13. Manajemen Pengguna Administrator (Users)
+## 14. Manajemen Pengguna Administrator (Users)
 
 Menu ini mengelola akun staf yang memiliki izin login ke dalam panel CMS Filament.
 
 [SCREENSHOT: Halaman Users — Daftar Pengguna Admin & Form Edit Akun]
 
-### 13.1 Menambah Administrator Baru
+### 14.1 Menambah Administrator Baru
 1. Buka menu **Settings** → **Users** → **New user**.
 2. Masukkan **Nama Lengkap**.
 3. Masukkan **Alamat Email** unik (contoh: `staff.sales@avenasa.co.id`).
 4. Masukkan **Kata Sandi** dan **Konfirmasi Kata Sandi**.
 5. Klik **Create**.
 
-### 13.2 Mengubah Kata Sandi Sendiri / Pengguna Lain
+### 14.2 Mengubah Kata Sandi Sendiri / Pengguna Lain
 1. Buka akun yang ingin diubah.
 2. Pada kolom kata sandi, ketik kata sandi baru.
 3. Jika tidak ingin mengubah kata sandi, biarkan kolom kata sandi **KOSONG**.
@@ -338,7 +384,7 @@ Menu ini mengelola akun staf yang memiliki izin login ke dalam panel CMS Filamen
 
 ---
 
-## 14. Panduan Pemeliharaan & Troubleshooting Pengguna
+## 15. Panduan Pemeliharaan & Troubleshooting Pengguna
 
 Berikut panduan cepat saat menghadapi kendala operasional umum:
 
@@ -360,4 +406,4 @@ Berikut panduan cepat saat menghadapi kendala operasional umum:
 * **Solusi:** Hubungi Master Administrator / tim IT ANS untuk mereset kata sandi melalui panel Users atau akses database server.
 
 ---
-*Manual Penggunaan CMS PT Abhipraya Nawasena Sejahtera — Versi 1.0 (Agustus 2026)*
+*Manual Penggunaan CMS PT Abhipraya Nawasena Sejahtera — Versi 1.1 (September 2026)*

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Brand;
 use App\Models\Client;
 use App\Models\CompanyProfile;
@@ -22,7 +23,8 @@ class HomeController extends Controller
         $featuredProducts = Product::with(['category', 'brand'])->active()->featured()->ordered()->take(12)->get();
         $brands = Brand::active()->ordered()->take(12)->get();
         $clients = Client::active()->ordered()->take(12)->get();
+        $latestArticles = Article::published()->ordered()->take(3)->get();
 
-        return view('pages.home', compact('heroBanners', 'hero', 'companyProfile', 'featuredProducts', 'brands', 'clients'));
+        return view('pages.home', compact('heroBanners', 'hero', 'companyProfile', 'featuredProducts', 'brands', 'clients', 'latestArticles'));
     }
 }

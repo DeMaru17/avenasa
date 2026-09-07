@@ -14,6 +14,9 @@
     {{-- Section 4: Principals & Clients Highlights --}}
     <x-home.partners-highlights :brands="$brands ?? collect()" :clients="$clients ?? collect()" />
 
-    {{-- Section 5: Strategic Call to Action --}}
+    {{-- Section 5: Latest Articles --}}
+    <x-home.latest-articles :articles="$latestArticles ?? collect()" />
+
+    {{-- Section 6: Strategic Call to Action --}}
     <x-home.strategic-cta :profile="$companyProfile" />
 @endsection

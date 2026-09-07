@@ -51,6 +51,7 @@ avenasa/
 ├── app/
 │   ├── Filament/
 │   │   └── Resources/
+│   │       ├── Articles/ (Schemas, Tables, Pages, RelationManagers)
 │   │       ├── Brands/ (Schemas, Tables, Pages)
 │   │       ├── Categories/ (Schemas, Tables, Pages)
 │   │       ├── Clients/ (Schemas, Tables, Pages)
@@ -63,6 +64,7 @@ avenasa/
 │   │       └── Users/ (Schemas, Tables, Pages)
 │   ├── Http/
 │   │   ├── Controllers/
+│   │   │   ├── ArticleController.php
 │   │   │   ├── ContactController.php
 │   │   │   ├── HomeController.php
 │   │   │   ├── PageController.php
@@ -76,7 +78,7 @@ avenasa/
 │   │   ├── QuotationAdminNotificationMail.php
 │   │   └── QuotationConfirmationMail.php
 │   ├── Models/
-│   │   ├── Brand.php, Category.php, Client.php, CompanyProfile.php,
+│   │   ├── Article.php, Brand.php, Category.php, Client.php, CompanyProfile.php,
 │   │   ├── CoreValue.php, HeroBanner.php, Management.php,
 │   │   ├── Product.php, ProductImage.php, Quotation.php, User.php
 │   │   └── ...
@@ -88,7 +90,7 @@ avenasa/
 ├── config/
 │   ├── app.php, database.php, filesystems.php, mail.php, services.php, ...
 ├── database/
-│   ├── migrations/ (13 skema migrasi tabel)
+│   ├── migrations/ (15 skema migrasi tabel)
 │   └── seeders/ (DatabaseSeeder & 8 seeders entitas)
 ├── lang/
 │   ├── id.json, id/
@@ -99,10 +101,10 @@ avenasa/
 │   ├── css/ (app.css dengan Tailwind v4)
 │   ├── js/ (app.js, analytics.js, bootstrap.js)
 │   └── views/
-│       ├── components/ (seo/, contact/, layout headers/footers)
+│       ├── components/ (articles/, home/latest-articles, seo/, contact/, layout headers/footers)
 │       ├── emails/quotation/ (admin.blade.php, confirmation.blade.php)
 │       ├── layouts/public.blade.php
-│       ├── pages/ (home, about, partners-clients, contact, products/index, products/show)
+│       ├── pages/ (home, about, partners-clients, contact, products/, articles/)
 │       └── sitemap.blade.php
 ├── routes/
 │   └── web.php
@@ -156,6 +158,8 @@ Route::prefix('{locale}')
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
         Route::get('/products/{slug}/brochure', [ProductController::class, 'brochure'])->name('products.brochure');
+        Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+        Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articles.show');
         Route::get('/partners-clients', [PageController::class, 'partnersClients'])->name('partners-clients');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
         Route::post('/contact', [ContactController::class, 'store'])
@@ -165,23 +169,26 @@ Route::prefix('{locale}')
 ```
 
 ### 4.1 Mekanisme Service Lokalisasi (`LocalizationService`)
-1. **Penerjemahan Slug Otomatis:** Saat beralih bahasa di halaman produk (`products.show`), service memetakan `slug_id` ke `slug_en` (atau sebaliknya).
-2. **Defensive Slug Fallback:** Jika entitas produk belum memiliki terjemahan `slug_en`, sistem secara aman mengarahkan ke katalog umum (`/en/products`) tanpa memicu eror 404.
-3. **Preservasi Parameter URL:** Filter kategori dan parameter query string dipertahankan saat pergantian bahasa.
-4. **Canonical & Alternate Hreflang:** Menghasilkan tag `<link rel="canonical">`, `<link rel="alternate" hreflang="id">`, `<link rel="alternate" hreflang="en">`, dan `<link rel="alternate" hreflang="x-default">` (merujuk ke versi default ID).
+1. **Penerjemahan Slug Otomatis:** Saat beralih bahasa di halaman produk (`products.show`) atau artikel (`articles.show`), service memetakan slug aktif ke slug pasangannya dari record yang sama (`slug_id` ↔ `slug_en`).
+2. **Defensive Slug Fallback:** Jika entitas produk belum memiliki terjemahan `slug_en`, sistem secara aman mengarahkan ke katalog umum (`/en/products`).
+3. **Strict Locale Slug Isolation pada Articles:** Rute `/id/articles/{slug_id}` hanya mencari `slug_id`, dan `/en/articles/{slug_en}` hanya mencari `slug_en`. Permintaan slug cross-locale langsung memicu HTTP 404 tanpa fallback silang.
+4. **Preservasi Parameter URL:** Filter kategori dan parameter query string dipertahankan saat pergantian bahasa.
+5. **Canonical & Alternate Hreflang:** Menghasilkan tag `<link rel="canonical">`, `<link rel="alternate" hreflang="id">`, `<link rel="alternate" hreflang="en">`, dan `<link rel="alternate" hreflang="x-default">` (merujuk ke versi default ID).
 
 ---
 
 ## 5. Arsitektur Database & Skema Relasi Entitas
 
-Skema database terdiri atas 13 berkas migrasi yang membangun 11 tabel entitas bisnis dan tabel infrastruktur sistem:
+Skema database terdiri atas 15 berkas migrasi yang membangun 13 tabel entitas bisnis dan tabel infrastruktur sistem:
 
 ```
 [Brand] ──1:N── [Product] ──1:N── [ProductImage]
                    │
                    ├──N:1── [Category]
                    │
-                   └──1:N── [Quotation]
+                   ├──1:N── [Quotation]
+                   │
+                   └──M:N── [Article] (via article_product pivot)
 
 [CompanyProfile] (Singleton)
 [CoreValue]
@@ -193,7 +200,27 @@ Skema database terdiri atas 13 berkas migrasi yang membangun 11 tabel entitas bi
 
 ### 5.1 Rincian Tabel Utama
 
-#### 1. `products`
+#### 1. `articles` & `article_product`
+* `articles.id` (BIGINT, PK, Auto Increment)
+* `title_id`, `title_en` (VARCHAR 255)
+* `slug_id`, `slug_en` (VARCHAR 255, Unique Indexed) — Terbentuk otomatis dari judul saat record dibuat, stabil dan permanen.
+* `excerpt_id`, `excerpt_en` (TEXT, Nullable)
+* `content_id`, `content_en` (LONGTEXT, Nullable) — Native RichEditor Filament 5.
+* `cover_image_path` (VARCHAR 255, Nullable)
+* `type` (VARCHAR 50, default `'news'`, Indexed: `news`, `event`, `product_update`, `company_update`)
+* `published_at` (TIMESTAMP, Nullable, Indexed, default `NULL`)
+* `is_active` (BOOLEAN, default true, Indexed)
+* `is_featured` (BOOLEAN, default false, Indexed)
+* `timestamps`
+* `article_product` (Tabel Pivot Many-to-Many):
+  * `id` (BIGINT, PK)
+  * `article_id` (FK ke `articles.id`, onDelete CASCADE)
+  * `product_id` (FK ke `products.id`, onDelete CASCADE)
+  * `sort_order` (INT, default 0, Indexed)
+  * Unique constraint: `['article_id', 'product_id']`
+  * Relasi reorder terisolasi penuh: perubahan urutan di Filament Relation Manager hanya memodifikasi `article_product.sort_order` dan tidak pernah menyentuh `products.sort_order`.
+
+#### 2. `products`
 * `id` (BIGINT, PK, Auto Increment)
 * `category_id` (FK ke `categories.id`, onDelete RESTRICT)
 * `brand_id` (FK ke `brands.id`, onDelete RESTRICT)
@@ -248,35 +275,40 @@ Skema database terdiri atas 13 berkas migrasi yang membangun 11 tabel entitas bi
 
 Admin panel dikonfigurasi melalui `AdminPanelProvider` pada path `/admin` dengan tema warna `Amber` dan ikon heroicons.
 
-### 6.1 Daftar 10 Filament Resources
-1. **CategoryResource (`app/Filament/Resources/Categories`)**
+### 6.1 Daftar 11 Filament Resources
+1. **ArticleResource (`app/Filament/Resources/Articles`)**
+   * Grup: *Company Content* (Sort: 5)
+   * Form: 4 Seksi (General Info, Rich Content ID/EN, Related Products Multi-select, Publishing Settings).
+   * Slug: Dihasilkan otomatis saat pembuatan record dari judul masing-masing bahasa. Input slug tidak pernah ditampilkan di form admin demi integritas SEO permanen.
+   * Relation Manager: `RelatedProductsRelationManager` (Manajemen many-to-many produk terkait dengan drag-and-drop ordering terisolasi pada `article_product.sort_order`).
+2. **CategoryResource (`app/Filament/Resources/Categories`)**
    * Grup: *Catalog Management* (Sort: 1)
    * Aksi Hapus: Dibatalkan jika terdapat relasi produk aktif.
-2. **BrandResource (`app/Filament/Resources/Brands`)**
+3. **BrandResource (`app/Filament/Resources/Brands`)**
    * Grup: *Catalog Management* (Sort: 2)
    * Aksi Hapus: Dibatalkan jika terdapat relasi produk aktif.
-3. **ProductResource (`app/Filament/Resources/Products`)**
+4. **ProductResource (`app/Filament/Resources/Products`)**
    * Grup: *Catalog Management* (Sort: 3)
    * Relation Manager: `ImagesRelationManager` (Manajemen galeri foto produk).
    * Aksi Hapus: Ditolak jika produk memiliki riwayat `quotations`.
-4. **HeroBannerResource (`app/Filament/Resources/HeroBanners`)**
+5. **HeroBannerResource (`app/Filament/Resources/HeroBanners`)**
    * Grup: *Homepage* (Sort: 1)
    * Validasi Regex: `button_url` wajib diawali tanda `/` (misal `/products`).
-5. **CompanyProfileResource (`app/Filament/Resources/CompanyProfiles`)**
+6. **CompanyProfileResource (`app/Filament/Resources/CompanyProfiles`)**
    * Grup: *Company Content* (Sort: 1)
    * Sifat: Singleton (non-deletable).
-6. **CoreValueResource (`app/Filament/Resources/CoreValues`)**
+7. **CoreValueResource (`app/Filament/Resources/CoreValues`)**
    * Grup: *Company Content* (Sort: 2)
    * Komponen Khusus: Select icon dengan preview SVG Heroicon langsung pada antarmuka admin.
-7. **ManagementResource (`app/Filament/Resources/Management`)**
+8. **ManagementResource (`app/Filament/Resources/Management`)**
    * Grup: *Company Content* (Sort: 3)
-8. **ClientResource (`app/Filament/Resources/Clients`)**
+9. **ClientResource (`app/Filament/Resources/Clients`)**
    * Grup: *Company Content* (Sort: 4)
-9. **QuotationResource (`app/Filament/Resources/Quotations`)**
-   * Grup: *Quotation / Inquiry Management* (Sort: 1)
-   * **Badge Counter:** Menampilkan lencana merah berisi jumlah tiket berstatus `New`.
-   * **Retention Security:** Tidak menyediakan aksi hapus (non-deletable).
-10. **UserResource (`app/Filament/Resources/Users`)**
+10. **QuotationResource (`app/Filament/Resources/Quotations`)**
+    * Grup: *Quotation / Inquiry Management* (Sort: 1)
+    * **Badge Counter:** Menampilkan lencana merah berisi jumlah tiket berstatus `New`.
+    * **Retention Security:** Tidak menyediakan aksi hapus (non-deletable).
+11. **UserResource (`app/Filament/Resources/Users`)**
     * Grup: *Settings* (Sort: 10)
     * Logika Password: Hashing otomatis BCRYPT, diabaikan saat edit jika input kosong.
 
@@ -293,6 +325,8 @@ Frontend dibangun dengan pendekatan *Component-Driven Architecture* menggunakan 
 * **Komponen Bersarang (`resources/views/components/`):**
   * `header.blade.php`: Navigasi desktop, drawer menu mobile, dan language switcher.
   * `footer.blade.php`: Informasi legal korporat, kontak cepat, dan floating CTA WhatsApp.
+  * `articles/card.blade.php`: Kartu artikel dwibahasa dengan badge tipe, waktu terbit, dan cover.
+  * `home/latest-articles.blade.php`: Grid 3 artikel terbaru di beranda (otomatis disembunyikan jika kosong).
   * `contact/form-shell.blade.php`: Formulir penawaran harga dengan validasi realtime, honeypot, dan event tracker.
 
 ---
@@ -313,6 +347,8 @@ Pada lingkungan shared hosting standar (Hostinger), eksekusi perintah symlink `p
 ```
 
 ### 8.1 Direktori Penyimpanan Logis:
+* **Foto Sampul Artikel (Cover):** `articles/covers/` (Maks 5 MB, format JPG/PNG/WebP).
+* **Gambar Inline Editor Artikel (RichEditor):** `articles/editor/` (Maks 5 MB, format JPG/PNG/WebP/GIF).
 * **Foto Utama Produk:** `products/primary/` (Maks 2 MB, format JPG/PNG/WebP).
 * **Galeri Tambahan Produk:** `products/gallery/` (Maks 2 MB).
 * **Brosur Resmi Produk:** `brochures/` (Maks 10 MB, format PDF).

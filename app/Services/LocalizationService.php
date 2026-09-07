@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Article;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -66,6 +67,25 @@ class LocalizationService
 
             // Defensive Fallback (per SPEC-05 Section 6.2)
             return route('products.index', ['locale' => $targetLocale]);
+        }
+
+        // 2. Article Detail (articles.show)
+        if ($routeName === 'articles.show') {
+            $slug = $currentRoute->parameter('slug');
+            $currentColumn = $currentLocale === 'en' ? 'slug_en' : 'slug_id';
+            $targetColumn = $targetLocale === 'en' ? 'slug_en' : 'slug_id';
+
+            $article = Article::where($currentColumn, $slug)->first();
+
+            if ($article && ! empty($article->{$targetColumn})) {
+                return route('articles.show', [
+                    'locale' => $targetLocale,
+                    'slug' => $article->{$targetColumn},
+                ]);
+            }
+
+            // Fallback to articles index if target slug is missing
+            return route('articles.index', ['locale' => $targetLocale]);
         }
 
         // 2. Product Catalog (products.index) with potential category filter
@@ -151,6 +171,31 @@ class LocalizationService
 
             $idUrl = (! empty($product?->slug_id)) ? route('products.show', ['locale' => 'id', 'slug' => $product->slug_id]) : null;
             $enUrl = (! empty($product?->slug_en)) ? route('products.show', ['locale' => 'en', 'slug' => $product->slug_en]) : null;
+            $xDefault = $enUrl ?? $idUrl ?? url('/en');
+
+            $hreflangs = [
+                'x-default' => $xDefault,
+            ];
+
+            if ($idUrl) {
+                $hreflangs['id'] = $idUrl;
+            }
+            if ($enUrl) {
+                $hreflangs['en'] = $enUrl;
+            }
+
+            return $hreflangs;
+        }
+
+        if ($routeName === 'articles.show') {
+            $slug = $currentRoute->parameter('slug');
+            $currentLocale = $this->getCurrentLocale();
+            $currentColumn = $currentLocale === 'en' ? 'slug_en' : 'slug_id';
+
+            $article = Article::where($currentColumn, $slug)->first();
+
+            $idUrl = (! empty($article?->slug_id)) ? route('articles.show', ['locale' => 'id', 'slug' => $article->slug_id]) : null;
+            $enUrl = (! empty($article?->slug_en)) ? route('articles.show', ['locale' => 'en', 'slug' => $article->slug_en]) : null;
             $xDefault = $enUrl ?? $idUrl ?? url('/en');
 
             $hreflangs = [

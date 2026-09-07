@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -26,6 +27,8 @@ Route::prefix('{locale}')
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');
         Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
         Route::get('/products/{slug}/brochure', [ProductController::class, 'brochure'])->name('products.brochure');
+        Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+        Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articles.show');
         Route::get('/partners-clients', [PageController::class, 'partnersClients'])->name('partners-clients');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
         Route::post('/contact', [ContactController::class, 'store'])

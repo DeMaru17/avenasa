@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Product;
 use Illuminate\Http\Response;
 
@@ -16,6 +17,7 @@ class SitemapController extends Controller
             'home' => ['id' => url('/id'), 'en' => url('/en')],
             'about' => ['id' => url('/id/about'), 'en' => url('/en/about')],
             'products' => ['id' => url('/id/products'), 'en' => url('/en/products')],
+            'articles' => ['id' => url('/id/articles'), 'en' => url('/en/articles')],
             'partners-clients' => ['id' => url('/id/partners-clients'), 'en' => url('/en/partners-clients')],
             'contact' => ['id' => url('/id/contact'), 'en' => url('/en/contact')],
         ];
@@ -24,9 +26,14 @@ class SitemapController extends Controller
             ->select('id', 'slug_id', 'slug_en', 'updated_at')
             ->get();
 
+        $articles = Article::published()
+            ->select('id', 'slug_id', 'slug_en', 'updated_at')
+            ->get();
+
         $content = view('sitemap', [
             'staticRoutes' => $staticRoutes,
             'products' => $products,
+            'articles' => $articles,
         ])->render();
 
         return response($content, 200, [
