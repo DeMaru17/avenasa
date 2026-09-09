@@ -25,11 +25,9 @@ class ProductController extends Controller
         $selectedCategory = null;
         $selectedBrand = null;
 
-        // Base query: only products where product, category, and brand are ALL active
-        $query = Product::query()
-            ->where('is_active', true)
+        // Base query: only products that are available (product active AND brand active) and category is active
+        $query = Product::available()
             ->whereHas('category', fn ($q) => $q->where('is_active', true))
-            ->whereHas('brand', fn ($q) => $q->where('is_active', true))
             ->with(['category', 'brand']);
 
         // 1. Category Filter (Localized slug matching)
@@ -89,8 +87,7 @@ class ProductController extends Controller
     {
         $column = $locale === 'en' ? 'slug_en' : 'slug_id';
 
-        $product = Product::query()
-            ->where('is_active', true)
+        $product = Product::available()
             ->where($column, $slug)
             ->with(['category', 'brand', 'images'])
             ->firstOrFail();
@@ -107,8 +104,7 @@ class ProductController extends Controller
     {
         $column = $locale === 'en' ? 'slug_en' : 'slug_id';
 
-        $product = Product::query()
-            ->where('is_active', true)
+        $product = Product::available()
             ->where($column, $slug)
             ->firstOrFail();
 

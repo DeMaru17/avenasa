@@ -22,8 +22,8 @@ class SitemapController extends Controller
             'contact' => ['id' => url('/id/contact'), 'en' => url('/en/contact')],
         ];
 
-        $products = Product::where('is_active', true)
-            ->select('id', 'slug_id', 'slug_en', 'updated_at')
+        $products = Product::available()
+            ->select('products.id', 'products.slug_id', 'products.slug_en', 'products.updated_at')
             ->get();
 
         $articles = Article::published()

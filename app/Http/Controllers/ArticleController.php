@@ -35,10 +35,10 @@ class ArticleController extends Controller
             ->where($slugColumn, $slug)
             ->firstOrFail();
 
-        // Eager load only active related products, preserving the pivot sort order
+        // Eager load only available related products (product active AND brand active), preserving the pivot sort order
         $article->load([
             'relatedProducts' => function ($query): void {
-                $query->where('products.is_active', true)
+                $query->available()
                     ->with(['category', 'brand'])
                     ->orderBy('article_product.sort_order', 'asc');
             },

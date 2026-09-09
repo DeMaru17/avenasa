@@ -12,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 class ArticleForm
 {
@@ -87,7 +88,7 @@ class ArticleForm
                     ->schema([
                         Select::make('relatedProducts')
                             ->label('Pilih Produk Terkait')
-                            ->relationship('relatedProducts', 'name_id')
+                            ->relationship('relatedProducts', 'name_id', modifyQueryUsing: fn (Builder $query) => $query->available())
                             ->multiple()
                             ->searchable()
                             ->preload(false)

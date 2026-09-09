@@ -36,7 +36,8 @@ class ProductsTable
                 TextColumn::make('brand.name')
                     ->label('Brand')
                     ->badge()
-                    ->color('gray')
+                    ->color(fn (Product $record): string => $record->brand?->is_active ? 'gray' : 'danger')
+                    ->description(fn (Product $record): ?string => $record->brand?->is_active ? null : 'Brand Nonaktif')
                     ->sortable(),
                 IconColumn::make('is_featured')
                     ->label('Unggulan')

@@ -129,13 +129,14 @@
             @endif
         </header>
 
-        {{-- 3. Cover Image --}}
+        {{-- 3. Cover Image (Natural Aspect Ratio, No Cropping) --}}
         @if ($coverUrl)
-            <div class="mb-10 sm:mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-slate-100 aspect-[16/9] max-h-[480px]">
+            <div class="mb-10 sm:mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50 flex justify-center">
                 <img
                     src="{{ $coverUrl }}"
                     alt="{{ $article->title }}"
-                    class="w-full h-full object-cover object-center"
+                    class="w-full h-auto max-h-[560px] object-contain rounded-2xl"
+                    loading="eager"
                 >
             </div>
         @endif

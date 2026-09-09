@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -190,10 +191,39 @@ class Product extends Model
 
     /**
      * Scope a query to only include active products.
+     *
+     * @param  Builder  $query
+     * @return Builder
      */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    /**
+     * Scope a query to only include effectively active (available) products:
+     * Product is active AND parent Brand is active.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->where('is_active', true)
+            ->whereHas('brand', function ($brandQuery): void {
+                $brandQuery->where('is_active', true);
+            });
+    }
+
+    /**
+     * Alias for scopeAvailable.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeEffectivelyActive($query)
+    {
+        return $this->scopeAvailable($query);
     }
 
     /**

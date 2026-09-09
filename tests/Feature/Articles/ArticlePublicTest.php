@@ -160,21 +160,42 @@ class ArticlePublicTest extends TestCase
             'is_active' => false,
         ]);
 
+        $inactiveBrand = Brand::create([
+            'name' => 'Inactive Brand',
+            'slug' => 'inactive-brand',
+            'logo_path' => 'brands/inactive.png',
+            'is_active' => false,
+        ]);
+
+        $activeProductInactiveBrand = Product::create([
+            'category_id' => $this->category->id,
+            'brand_id' => $inactiveBrand->id,
+            'name_id' => 'Alat PCR Brand Nonaktif',
+            'name_en' => 'Inactive Brand PCR System',
+            'slug_id' => 'alat-pcr-brand-nonaktif',
+            'slug_en' => 'inactive-brand-pcr-system',
+            'primary_image_path' => 'products/primary/inactive-brand.png',
+            'is_active' => true,
+        ]);
+
         $article->relatedProducts()->attach([
             $activeProduct->id => ['sort_order' => 1],
             $inactiveProduct->id => ['sort_order' => 2],
+            $activeProductInactiveBrand->id => ['sort_order' => 3],
         ]);
 
         $responseId = $this->get("/id/articles/{$article->slug_id}");
         $responseId->assertStatus(200);
         $responseId->assertSee('Alat PCR Aktif');
         $responseId->assertDontSee('Alat PCR Nonaktif');
+        $responseId->assertDontSee('Alat PCR Brand Nonaktif');
         $responseId->assertSee('/id/products/alat-pcr-aktif');
 
         $responseEn = $this->get("/en/articles/{$article->slug_en}");
         $responseEn->assertStatus(200);
         $responseEn->assertSee('Active PCR System');
         $responseEn->assertDontSee('Inactive PCR System');
+        $responseEn->assertDontSee('Inactive Brand PCR System');
         $responseEn->assertSee('/en/products/active-pcr-system');
     }
 

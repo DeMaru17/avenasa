@@ -12,6 +12,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class RelatedProductsRelationManager extends RelationManager
@@ -87,6 +88,7 @@ class RelatedProductsRelationManager extends RelationManager
                 AttachAction::make()
                     ->label('Hubungkan Produk')
                     ->recordSelectSearchColumns(['name_id', 'name_en'])
+                    ->recordSelectOptionsQuery(fn (Builder $query) => $query->available())
                     ->form(fn (AttachAction $action): array => [
                         $action->getRecordSelect(),
                         TextInput::make('sort_order')

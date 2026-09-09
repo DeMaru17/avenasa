@@ -29,7 +29,7 @@ class ContactController extends Controller
 
         $productId = $request->query('product_id');
         if ($productId && is_numeric($productId)) {
-            $requestedProduct = Product::where('is_active', true)->find((int) $productId);
+            $requestedProduct = Product::available()->find((int) $productId);
 
             if ($requestedProduct) {
                 $productName = $locale === 'en' && ! empty($requestedProduct->name_en)
@@ -69,10 +69,10 @@ class ContactController extends Controller
                 ->with('success', $successMessage);
         }
 
-        // 2. Resolve active product context from database
+        // 2. Resolve available product context from database
         $productId = $request->input('product_id');
         $activeProduct = ($productId && is_numeric($productId))
-            ? Product::where('is_active', true)->find((int) $productId)
+            ? Product::available()->find((int) $productId)
             : null;
 
         $validProductId = $activeProduct?->id;

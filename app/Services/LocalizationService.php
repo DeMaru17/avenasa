@@ -56,7 +56,7 @@ class LocalizationService
             $currentColumn = $currentLocale === 'en' ? 'slug_en' : 'slug_id';
             $targetColumn = $targetLocale === 'en' ? 'slug_en' : 'slug_id';
 
-            $product = Product::where($currentColumn, $slug)->first();
+            $product = Product::available()->where($currentColumn, $slug)->first();
 
             if ($product && ! empty($product->{$targetColumn})) {
                 return route($routeName, [
@@ -167,7 +167,7 @@ class LocalizationService
             $currentLocale = $this->getCurrentLocale();
             $currentColumn = $currentLocale === 'en' ? 'slug_en' : 'slug_id';
 
-            $product = Product::where($currentColumn, $slug)->first();
+            $product = Product::available()->where($currentColumn, $slug)->first();
 
             $idUrl = (! empty($product?->slug_id)) ? route('products.show', ['locale' => 'id', 'slug' => $product->slug_id]) : null;
             $enUrl = (! empty($product?->slug_en)) ? route('products.show', ['locale' => 'en', 'slug' => $product->slug_en]) : null;

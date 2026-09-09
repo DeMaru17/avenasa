@@ -25,6 +25,23 @@
                 <p class="text-slate-400 text-sm leading-relaxed font-semibold max-w-sm">
                     {{ $profile?->tagline_en ?? 'Empowering Science for a Prosperous Future' }}
                 </p>
+
+                <div class="pt-0.5">
+                    <p class="text-xs text-slate-400 font-normal mb-2">
+                        {{ __('Find our products on e-Katalog INAPROC') }}
+                    </p>
+                    <a href="https://katalog.inaproc.id/abhipraya-nawasena-sejahtera"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="inline-flex items-center bg-white px-3 py-1.5 rounded-md hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                       title="e-Katalog INAPROC - PT Abhipraya Nawasena Sejahtera"
+                       aria-label="e-Katalog INAPROC - PT Abhipraya Nawasena Sejahtera">
+                        <img src="{{ asset('images/logo-katalog-elektronik.webp') }}"
+                             alt="e-Katalog INAPROC"
+                             class="h-10 w-auto object-contain"
+                             loading="lazy">
+                    </a>
+                </div>
             </div>
 
             {{-- Col 2: Quick Links (Shifted Right with Gutter) --}}
@@ -123,6 +140,10 @@
                         <div class="flex items-center gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
                             <span class="text-slate-400 text-sm font-medium">Labtex</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-400 flex-shrink-0"></span>
+                            <span class="text-slate-400 text-sm font-medium">Era Biology</span>
                         </div>
                 </div>
 
